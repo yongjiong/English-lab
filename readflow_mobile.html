@@ -79,9 +79,9 @@ main{padding:16px 16px 100px;display:flex;flex-direction:column;gap:14px}
 
 /* ── Reading card ── */
 .reading-card{background:rgba(252,249,243,.95);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(89,102,86,.10);overflow:hidden}
-.reading-mode-tabs{display:flex;border-bottom:1px solid rgba(89,102,86,.08);background:#efe8da;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.reading-mode-tabs{display:flex;border-bottom:1px solid rgba(89,102,86,.08);background:#efe8da}
 .reading-mode-tabs::-webkit-scrollbar{display:none}
-.reading-tab{flex-shrink:0;padding:10px 14px;border:none;background:transparent;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-3);border-bottom:2px solid transparent;white-space:nowrap}
+.reading-tab{flex:1;padding:10px 8px;border:none;background:transparent;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-3);border-bottom:2px solid transparent;text-align:center;white-space:nowrap}
 .reading-tab.active{background:#fcf8f0;color:var(--primary);font-weight:500;border-bottom-color:#a47d2f}
 .search-page-pill{padding:4px 10px;font-size:11px;color:var(--ink-3);display:none;white-space:nowrap;align-self:center;margin-right:10px}
 .search-page-pill.show{display:inline-flex}
@@ -213,7 +213,7 @@ main{padding:16px 16px 100px;display:flex;flex-direction:column;gap:14px}
 
 /* ── Illustration ── */
 .article-illustration-shell{border-radius:10px;overflow:hidden;margin-bottom:14px;position:relative}
-.article-illustration-frame{position:relative}
+.article-illustration-frame{position:relative;overflow:hidden;border-radius:inherit;height:248px}
 .article-illustration-caption{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(0deg,rgba(0,0,0,.65),transparent);display:flex;align-items:flex-end;justify-content:space-between}
 .article-illustration-title{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,.9);line-height:1.4}
 .article-illustration-sub{font-size:10px;color:rgba(255,255,255,.6);line-height:1.5}
@@ -504,7 +504,7 @@ input[type=text]:focus{border-color:var(--primary)}
       <div id="levelDesc" style="font-size:11px;color:var(--ink-3);margin-top:7px;padding:8px 10px;background:var(--paper-2);border-radius:7px;line-height:1.6"></div>
     </div>
     <div style="margin-bottom:18px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px">感兴趣的类型 <span style="font-weight:400;text-transform:none;letter-spacing:0">（单选，不选=随机）</span></div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px">感兴趣的类型 <span style="font-weight:400;text-transform:none;letter-spacing:0"></span></div>
       <div style="display:flex;gap:7px;flex-wrap:wrap" id="catBtns">
         <button class="pref-cat-btn" data-cat="AI与科技"   onclick="toggleCat('AI与科技')">🤖 AI与科技</button>
         <button class="pref-cat-btn" data-cat="商业故事"   onclick="toggleCat('商业故事')">💼 商业故事</button>
@@ -1406,6 +1406,33 @@ function refreshBreakdownCards() {
   if (currentReadMode === 'breakdown' && currentArticle) renderArticle(currentArticle);
 }
 
+// Batch-prefetch ALL sentence structure analyses when entering breakdown mode (speeds up tap response)
+async function prefetchSentenceDetails(article) {
+  if (!_safeStorage.getItem('rf_api_key')) return;
+  if (!article || article.isDemo) return;
+  const { visible: sentences } = getVisibleSentenceUnits(article);
+  const missing = sentences.filter(s => !sentenceDetailCache[s.trim().toLowerCase()]);
+  if (!missing.length) return;
+  const prompt = `Analyze these English sentences for a Chinese learner. For each sentence provide core, extra and reading order in Chinese.
+Return ONLY valid JSON array (same order, one object per sentence):
+[{"core":[{"en":"...","zh":"..."}],"extra":[{"en":"...","zh":"..."}],"order":[{"en":"...","zh":"..."},{"en":"...","zh":"..."}]}]
+Sentences:
+${missing.map((s, i) => `${i+1}. ${s}`).join('\n')}`;
+  try {
+    const raw = await callAI(prompt, { maxTokens: Math.min(2400, missing.length * 450), temperature: 0.15 });
+    const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if (Array.isArray(data)) {
+      data.forEach((item, i) => {
+        if (!missing[i] || !item) return;
+        sentenceDetailCache[missing[i].trim().toLowerCase()] = {
+          core: item.core || [], extra: item.extra || [], order: item.order || []
+        };
+      });
+      refreshBreakdownCards();
+    }
+  } catch(err) { console.warn('batch prefetch details failed, will fetch per-sentence on tap', err); }
+}
+
 function getSentenceAnalysis(sentence) {
   return sentenceCache[sentence.trim().toLowerCase()] || null;
 }
@@ -1723,6 +1750,7 @@ function setReadMode(mode) {
   if (mode === 'breakdown') {
     bindSentenceTokens(document.getElementById('articleBody'));
     prefetchSentenceAnalyses(currentArticle);
+    prefetchSentenceDetails(currentArticle);
   }
 }
 
@@ -1781,6 +1809,7 @@ function setSentencePage(index) {
   if (currentReadMode === 'breakdown' && currentArticle) {
     renderArticle(currentArticle);
     prefetchSentenceAnalyses(currentArticle);
+    prefetchSentenceDetails(currentArticle);
   }
 }
 
