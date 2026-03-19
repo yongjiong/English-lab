@@ -568,9 +568,14 @@ textarea::placeholder { color:var(--ink-3); font-family:'DM Sans',sans-serif; fo
 
 <!-- API Modal -->
 <div class="api-setup" id="apiSetup" style="display:none">
-  <div class="api-modal">
+  <div class="api-modal" style="position:relative">
+    <button id="apiCloseBtn" onclick="closeApiSetup()" style="display:none;position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;color:var(--ink-3);cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px" title="关闭">✕</button>
     <h2>SentenceFlow</h2>
-    <p>你可以先浏览页面和功能预览；需要真正生成纠正、查词和翻译时，再回来接入你的 API。信息只保存在当前浏览器；如在公共电脑上使用，请在结束后清除浏览器数据。</p>
+    <div id="apiAlreadyConfigured" style="display:none;margin-bottom:14px;padding:10px 14px;background:#e8f5ec;border-radius:10px;border-left:3px solid var(--primary);font-size:13px;color:var(--primary-dark)">
+      ✅ 已配置 API Key · <span id="apiConfiguredInfo"></span><br>
+      <span style="font-size:12px;color:var(--ink-3)">如需更换，在下方输入新的 Key 后保存即可。</span>
+    </div>
+    <p style="margin-bottom:16px">你可以先浏览页面和功能预览；需要真正生成纠正、查词和翻译时，再回来接入你的 API。信息只保存在当前浏览器；如在公共电脑上使用，请在结束后清除浏览器数据。</p>
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap" id="providerTabs">
       <button class="provider-tab active" onclick="selectProvider('openai')"  data-p="openai">ChatGPT</button>
       <button class="provider-tab"        onclick="selectProvider('gemini')"  data-p="gemini">Gemini</button>
@@ -804,7 +809,15 @@ function selectProvider(p) {
   document.getElementById('customModelWrap').style.display = p==='custom'?'block':'none';
 }
 function saveApiKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
+  const existingKey = _safeStorage.getItem('sf_api_key') || '';
+  const inputVal = document.getElementById('apiKeyInput').value.trim();
+  // If input is empty but we already have a key saved, just close
+  if (!inputVal && existingKey) {
+    document.getElementById('apiSetup').style.display = 'none';
+    updateProviderBadge();
+    return;
+  }
+  const key = inputVal;
   if (!key || key.length < 8) { showToast('请填写有效的 API Key'); return; }
   if (currentProvider === 'custom') {
     const url = document.getElementById('customUrlInput').value.trim();
@@ -827,7 +840,22 @@ function closeApiSetup() {
 function resetApiKey() {
   document.getElementById('apiKeyInput').value = '';
   selectProvider(_safeStorage.getItem('sf_provider') || 'openai');
-  openApiSetup();
+  document.getElementById('apiSetup').style.display = 'flex';
+  const existingKey = _safeStorage.getItem('sf_api_key') || '';
+  const closeBtn = document.getElementById('apiCloseBtn');
+  const configuredDiv = document.getElementById('apiAlreadyConfigured');
+  const configuredInfo = document.getElementById('apiConfiguredInfo');
+  if (existingKey && closeBtn) {
+    closeBtn.style.display = 'block';
+    if (configuredDiv) {
+      const providerName = PROVIDERS[_safeStorage.getItem('sf_provider')||'openai']?.name || '';
+      configuredInfo.textContent = providerName + ' · ' + existingKey.slice(0,6) + '••••' + existingKey.slice(-4);
+      configuredDiv.style.display = 'block';
+    }
+  }
+}
+function closeApiSetup() {
+  document.getElementById('apiSetup').style.display = 'none';
 }
 function updateProviderBadge() {
   const hasApi = !!_safeStorage.getItem('sf_api_key');
