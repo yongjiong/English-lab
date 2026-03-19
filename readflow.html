@@ -658,15 +658,16 @@ linear-gradient(180deg,#f5f0e5,#fbf8f1)}
 // ── Storage Shim (works in data: URI iframes where localStorage is blocked) ──
 const _store = {};
 const _safeStorage = {
-  getItem(k) { try { return _safeStorage.getItem(k); } catch(e) { return _store[k] ?? null; } },
-  setItem(k, v) { try { _safeStorage.setItem(k, v); } catch(e) {} _store[k] = String(v); },
-  removeItem(k) { try { _safeStorage.removeItem(k); } catch(e) {} delete _store[k]; }
+  getItem(k) { try { return localStorage.getItem(k); } catch(e) { return _store[k] ?? null; } },
+  setItem(k, v) { try { localStorage.setItem(k, v); } catch(e) {} _store[k] = String(v); },
+  removeItem(k) { try { localStorage.removeItem(k); } catch(e) {} delete _store[k]; }
 };
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const PROVIDERS = {
   openai: { name:'ChatGPT',  placeholder:'sk-...',           hint:'GPT-4o mini，效果好且便宜',           note:'获取：<a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>', model:'gpt-4o-mini', url:'https://api.openai.com/v1/chat/completions' },
-  gemini: { name:'Gemini',   placeholder:'AIzaSy...',        hint:'Gemini 1.5 Flash，每天免费 1500 次',  note:'获取：<a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com</a>',  model:'gemini-2.0-flash', url:null },
+  qwen:   { name:'阿里千问', placeholder:'sk-...',           hint:'Qwen-Turbo，国内访问快，有免费额度',  note:'获取：<a href="https://dashscope.console.aliyun.com/apiKey" target="_blank">dashscope.console.aliyun.com</a>', model:'qwen-turbo', url:'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions' },
+  gemini: { name:'Gemini',   placeholder:'AIzaSy...',        hint:'Gemini 2.0 Flash，每天免费 1500 次',  note:'获取：<a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com</a>',  model:'gemini-2.0-flash', url:null },
   glm:    { name:'智谱 GLM', placeholder:'智谱 API Key',      hint:'GLM-4-Flash，国内访问快，有免费额度', note:'获取：<a href="https://open.bigmodel.cn" target="_blank">open.bigmodel.cn</a>',             model:'glm-4-flash', url:'https://open.bigmodel.cn/api/paas/v4/chat/completions' },
   claude: { name:'Claude',   placeholder:'sk-ant-api03-...', hint:'Claude Haiku，速度快费用低',          note:'获取：<a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>',   model:'claude-haiku-4-5-20251001', url:'https://api.anthropic.com/v1/messages' },
   custom: { name:'兼容接口', placeholder:'API Key',          hint:'兼容 OpenAI 格式：DeepSeek / Moonshot / Ollama 等', note:'填写接口地址和模型名', model:'', url:'' },
