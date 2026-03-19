@@ -486,6 +486,9 @@ function saveApiKey() {
 }
 function openApiSetup() {
   document.getElementById('apiSetup').style.display = 'flex';
+  const existingKey = _safeStorage.getItem('sf_api_key') || '';
+  const closeBtn = document.getElementById('apiCloseBtn');
+  if (closeBtn) closeBtn.style.display = existingKey ? 'block' : 'none';
 }
 function closeApiSetup() {
   document.getElementById('apiSetup').style.display = 'none';
