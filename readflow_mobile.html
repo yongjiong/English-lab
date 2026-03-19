@@ -1406,20 +1406,25 @@ function refreshBreakdownCards() {
   if (currentReadMode === 'breakdown' && currentArticle) renderArticle(currentArticle);
 }
 
-// Batch-prefetch ALL sentence structure analyses when entering breakdown mode (speeds up tap response)
-async function prefetchSentenceDetails(article) {
+// Background-warm remaining sentence details after user taps the first one
+// Only fetches sentences NOT yet cached, so it never re-fetches
+async function prefetchSentenceDetails(article, excludeSentence) {
   if (!_safeStorage.getItem('rf_api_key')) return;
   if (!article || article.isDemo) return;
   const { visible: sentences } = getVisibleSentenceUnits(article);
-  const missing = sentences.filter(s => !sentenceDetailCache[s.trim().toLowerCase()]);
+  // Skip the sentence the user just tapped (it's already being fetched individually)
+  const missing = sentences.filter(s =>
+    s !== excludeSentence && !sentenceDetailCache[s.trim().toLowerCase()]
+  );
   if (!missing.length) return;
-  const prompt = `Analyze these English sentences for a Chinese learner. For each sentence provide core, extra and reading order in Chinese.
-Return ONLY valid JSON array (same order, one object per sentence):
+  // One request for all remaining sentences in this page
+  const prompt = `Analyze these English sentences for a Chinese learner. For each sentence provide core structure, extra info, reading order in Chinese.
+Return ONLY valid JSON array (same order as input, one object per sentence):
 [{"core":[{"en":"...","zh":"..."}],"extra":[{"en":"...","zh":"..."}],"order":[{"en":"...","zh":"..."},{"en":"...","zh":"..."}]}]
 Sentences:
 ${missing.map((s, i) => `${i+1}. ${s}`).join('\n')}`;
   try {
-    const raw = await callAI(prompt, { maxTokens: Math.min(2400, missing.length * 450), temperature: 0.15 });
+    const raw = await callAI(prompt, { maxTokens: Math.min(2000, missing.length * 420), temperature: 0.15 });
     const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
     if (Array.isArray(data)) {
       data.forEach((item, i) => {
@@ -1428,9 +1433,10 @@ ${missing.map((s, i) => `${i+1}. ${s}`).join('\n')}`;
           core: item.core || [], extra: item.extra || [], order: item.order || []
         };
       });
-      refreshBreakdownCards();
+      // Quietly refresh cards that are already expanded
+      if (currentReadMode === 'breakdown') refreshBreakdownCards();
     }
-  } catch(err) { console.warn('batch prefetch details failed, will fetch per-sentence on tap', err); }
+  } catch(err) { console.warn('background prefetch details failed', err); }
 }
 
 function getSentenceAnalysis(sentence) {
@@ -1750,7 +1756,6 @@ function setReadMode(mode) {
   if (mode === 'breakdown') {
     bindSentenceTokens(document.getElementById('articleBody'));
     prefetchSentenceAnalyses(currentArticle);
-    prefetchSentenceDetails(currentArticle);
   }
 }
 
@@ -1809,7 +1814,6 @@ function setSentencePage(index) {
   if (currentReadMode === 'breakdown' && currentArticle) {
     renderArticle(currentArticle);
     prefetchSentenceAnalyses(currentArticle);
-    prefetchSentenceDetails(currentArticle);
   }
 }
 
@@ -1841,6 +1845,9 @@ async function breakdownSentence(sentence, targetEl) {
     return;
   }
   if (!_safeStorage.getItem('rf_api_key')) return;
+  // Kick off background warm for all other sentences on this page (non-blocking)
+  setTimeout(() => prefetchSentenceDetails(currentArticle, sentence), 50);
+
   const panel = targetEl.querySelector('.analysis-panel');
   if (panel) {
     panel.classList.add('loading');
