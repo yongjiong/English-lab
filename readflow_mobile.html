@@ -423,7 +423,10 @@ input[type=text]:focus{border-color:var(--primary)}
 <div class="sidebar-sheet" id="sidebarSheet">
   <div class="sidebar-backdrop" onclick="closeSidebar()"></div>
   <div class="sidebar-panel">
-    <div class="sidebar-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 0;flex-shrink:0">
+      <div class="sidebar-handle" style="margin:0"></div>
+      <button onclick="closeSidebar()" style="background:none;border:none;font-size:20px;color:var(--ink-3);cursor:pointer;padding:0 4px;line-height:1">✕</button>
+    </div>
     <div class="sidebar-tabs">
       <button class="sidebar-tab active" onclick="switchTab('vocab')">单词本</button>
       <button class="sidebar-tab"        onclick="switchTab('sentences')">收藏句子</button>
@@ -521,6 +524,9 @@ input[type=text]:focus{border-color:var(--primary)}
 </div>
 
 <div class="toast" id="toast"></div>
+<!-- Hidden stat spans to prevent null errors from reused desktop JS -->
+<span id="totalDays" style="display:none"></span>
+<span id="totalArticles" style="display:none"></span>
 
 <style>
 @keyframes spin{to{transform:rotate(360deg)}}
