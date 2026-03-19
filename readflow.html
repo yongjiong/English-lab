@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReadFlow · 每日 N+1 英语阅读</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#1c2821; --ink-2:#405045; --ink-3:#7e877c;
+  --paper:#f4f1e8; --paper-2:#ebe6da; --paper-3:#d7d0bf;
+  --primary:#224c3b; --primary-light:#dbe4db; --primary-dark:#17372b;
+  --accent:#a47d2f; --accent-light:#f4ecd8;
+  --warn:#a47d2f; --warn-light:#f7efde;
+  --red:#c0392b; --red-light:#fde8e8;
+  --purple:#6f8c76; --purple-light:#e6ede6;
+  --teal:#708777; --teal-light:#e7ece6;
+  --radius:12px;
+  --shadow:0 8px 22px rgba(39,50,39,.08);
+  --shadow-lg:0 18px 42px rgba(31,43,35,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:
+radial-gradient(circle at top left, rgba(34,76,59,.08), transparent 28%),
+radial-gradient(circle at top right, rgba(164,125,47,.08), transparent 24%),
+linear-gradient(180deg,#f7f3ea 0%, #f1ede3 48%, #efeadd 100%);
+color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+.page-wrap{display:flex;flex:1;min-height:0}
+
+/* ── Header ── */
+header{padding:13px 36px;border-bottom:1px solid rgba(89,102,86,.14);display:flex;align-items:center;justify-content:space-between;background:rgba(247,243,234,.88);position:sticky;top:0;z-index:40;box-shadow:0 1px 0 rgba(215,208,191,.9);backdrop-filter:blur(14px)}
+.logo{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.logo-mark{width:26px;height:32px;border-radius:8px 8px 6px 6px;background:linear-gradient(180deg,#355f4c 0%, #1f4335 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 18px rgba(34,76,59,.18);position:relative;flex-shrink:0;clip-path:polygon(0 0,100% 0,100% 84%,50% 100%,0 84%);border:1px solid rgba(23,55,43,.18)}
+.logo-mark::before{content:"";position:absolute;left:5px;top:6px;bottom:10px;width:3px;border-radius:999px;background:rgba(231,221,189,.76)}
+.logo-mark::after{content:"";position:absolute;left:10px;right:6px;top:8px;height:2px;background:rgba(243,234,215,.68);box-shadow:0 6px 0 rgba(243,234,215,.38),0 12px 0 rgba(243,234,215,.24)}
+.logo-text{display:flex;flex-direction:column;gap:2px;line-height:1}
+.logo-title{font-family:'Lora',serif;font-size:23px;letter-spacing:.02em;color:var(--ink)}
+.logo-subtitle{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.header-right{display:flex;align-items:center;gap:18px;font-size:13px;color:var(--ink-3)}
+.header-stat strong{color:var(--ink);font-weight:500;margin-right:3px}
+.change-ai-btn{cursor:pointer;color:var(--primary);font-size:13px;padding:5px 12px;border:1.5px solid rgba(34,76,59,.12);border-radius:20px;background:rgba(237,232,220,.88);transition:all .15s}
+.change-ai-btn:hover{background:var(--primary);color:#f8f3e8;border-color:var(--primary)}
+
+/* ── Main layout ── */
+main{flex:1;padding:28px 36px 60px;display:flex;flex-direction:column;gap:20px;min-width:0;}
+aside{width:348px;flex-shrink:0;border-left:1px solid rgba(89,102,86,.12);background:rgba(250,247,241,.72);display:flex;flex-direction:column;position:sticky;top:53px;height:calc(100vh - 53px);overflow:hidden;backdrop-filter:blur(10px)}
+
+/* ── Article info card ── */
+.article-meta-card{background:rgba(252,249,243,.88);border-radius:16px;padding:18px 22px;box-shadow:var(--shadow);border:1px solid rgba(89,102,86,.12);display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(12px)}
+.article-meta-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.article-title{font-family:'Lora',serif;font-size:20px;line-height:1.45;color:var(--ink);flex:1}
+.article-badges{display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;margin-top:4px}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;white-space:nowrap}
+.badge-level{background:#274d3d;color:#f3ecdd;border:1px solid rgba(39,77,61,.12)}
+.badge-time{background:#dde4da;color:#405447;border:1px solid rgba(64,84,71,.10)}
+.badge-topic{background:#efe7d5;color:#6d582c;border:1px solid rgba(164,125,47,.14)}
+.article-why{font-size:13px;color:var(--ink-3);line-height:1.6;padding:10px 14px;background:linear-gradient(180deg,#f1ece1,#ece5d7);border-radius:10px;border-left:3px solid #b39b68}
+.article-why strong{color:var(--ink-2);font-weight:500}
+.focus-word-row{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;padding:2px 0 0}
+.focus-word-label{font-size:12px;color:var(--ink-3);padding-top:6px;white-space:nowrap}
+.focus-word-list{display:flex;gap:8px;flex-wrap:wrap}
+.focus-word-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:linear-gradient(180deg,#d7e5da,#c8d9cc);border:1px solid #8aa991;font-size:12px;color:#244634;font-family:'DM Mono',monospace;box-shadow:0 1px 0 rgba(255,255,255,.88) inset}
+.focus-word-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:#2f5f46;box-shadow:0 0 0 3px rgba(47,95,70,.14)}
+.article-meta-actions{display:flex;gap:8px;align-items:center}
+.new-article-btn{background:rgba(252,249,243,.92);border:1.5px solid rgba(89,102,86,.14);color:var(--ink-2);padding:7px 16px;border-radius:10px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px;box-shadow:0 1px 0 rgba(255,255,255,.82) inset}
+.new-article-btn:hover{border-color:var(--primary);color:var(--primary);background:#f4efe3}
+.new-article-btn:disabled{opacity:.5;cursor:not-allowed}
+.read-status{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:4px}
+
+/* ── Reading area ── */
+.reading-card{background:rgba(252,249,243,.92);border-radius:18px;box-shadow:var(--shadow);border:1px solid rgba(89,102,86,.12);overflow:hidden;position:relative;backdrop-filter:blur(12px)}
+.reading-mode-tabs{display:flex;gap:0;border-bottom:1px solid rgba(89,102,86,.10);background:#efe8da}
+.reading-tab{flex:1;padding:10px 14px;border:none;background:transparent;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-3);transition:all .15s;font-weight:400;border-bottom:2px solid transparent}
+.reading-tab:hover{color:var(--ink)}
+.reading-tab.active{background:#fcf8f0;color:var(--primary);font-weight:500;border-bottom-color:#a47d2f}
+.reading-tab-wrap{display:flex;align-items:center;border-bottom:1px solid rgba(89,102,86,.10);background:#efe8da}
+.reading-tab-wrap .reading-mode-tabs{flex:1;border-bottom:none}
+.search-page-pill{margin-right:14px;padding:4px 10px;border-radius:999px;background:#f8f3e8;border:1px solid rgba(89,102,86,.12);font-size:11px;color:var(--ink-3);display:none}
+.search-page-pill.show{display:inline-flex}
+.inline-compose{display:none;padding:16px 18px;border-bottom:1px solid rgba(89,102,86,.10);background:linear-gradient(180deg,rgba(245,241,232,.92),rgba(239,232,218,.78))}
+.inline-compose.show{display:block}
+.inline-compose-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.inline-compose-title{font-size:16px;font-weight:600;color:var(--ink)}
+.inline-compose-desc{font-size:12px;line-height:1.7;color:var(--ink-3);max-width:720px}
+.inline-compose-close{padding:7px 12px;border-radius:10px;border:1px solid var(--paper-3);background:white;color:var(--ink-2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.inline-compose-actions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.article-body{padding:24px 28px 8px;line-height:0}
+.article-paragraph{margin-bottom:0;line-height:1.95;font-family:'Lora',serif;font-size:17px;color:var(--ink)}
+.article-paragraph:last-child{margin-bottom:0}
+
+/* ── Word tokens ── */
+.wt{cursor:pointer;border-radius:4px;padding:0 3px;transition:background .12s, color .12s, box-shadow .12s}
+.wt:hover{background:rgba(34,76,59,.08)}
+.wt-blue:hover{background:rgba(164,125,47,.10)}
+
+/* ── Sentence highlight ── */
+.sentence-block{cursor:pointer;border-radius:4px;padding:2px 2px;transition:all .15s;display:inline;border-bottom:1.5px dotted rgba(34,76,59,.30)}
+.sentence-block:hover{background:rgba(34,76,59,.07);border-bottom-style:solid}
+.sentence-block.active{background:rgba(34,76,59,.11);border-bottom-color:#a47d2f;border-bottom-style:solid}
+.sentence-card-list{display:flex;flex-direction:column;gap:14px}
+.sentence-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:2px 2px 8px}
+.sentence-toolbar-meta{font-size:12px;color:var(--ink-3)}
+.sentence-toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sentence-page-jump{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3)}
+.sentence-page-jump input{width:52px;padding:6px 8px;border:1px solid var(--paper-3);border-radius:8px;background:white;color:var(--ink);font-size:12px;font-family:'DM Sans',sans-serif;text-align:center}
+.sentence-page-jump button{padding:6px 10px;border-radius:8px;border:1px solid var(--paper-3);background:white;color:var(--ink-2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sentence-card{border:1px solid var(--paper-3);border-radius:12px;background:linear-gradient(180deg,#ffffff,#f9fcfa);overflow:hidden}
+.sentence-card.active{border-color:var(--primary);box-shadow:0 8px 24px rgba(46,125,90,.10)}
+.sentence-card-toggle{padding:14px 16px 10px;cursor:pointer}
+.sentence-card-top{display:flex;align-items:baseline;gap:8px}
+.sentence-card-en{font-family:'Lora',serif;font-size:17px;line-height:1.85;color:var(--ink);flex:1;min-width:0}
+.sentence-speak-btn{width:28px;height:28px;flex-shrink:0;border-radius:50%;border:1px solid var(--paper-3);background:white;color:var(--primary);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.sentence-card-zh{padding:0 16px 14px;font-size:14px;line-height:1.75;color:var(--ink-2);border-top:1px dashed var(--paper-3);background:rgba(46,125,90,.03)}
+.sentence-card-zh.loading{color:var(--ink-3)}
+.sentence-detail{display:none;border-top:1px solid var(--paper-3);padding:14px 16px 16px;background:white}
+.sentence-card.active .sentence-detail{display:block}
+.analysis-schemes{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+.analysis-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.sentence-action-btn{padding:5px 10px;border-radius:999px;border:1px solid var(--paper-3);background:white;font-size:12px;color:var(--ink-3);cursor:pointer}
+.analysis-panel{display:flex;flex-direction:column;gap:10px}
+.analysis-block{background:var(--paper-2);border-radius:10px;padding:12px 14px}
+.analysis-block-title{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600}
+.analysis-block-text{display:flex;flex-direction:column;gap:8px}
+.analysis-item{background:white;border:1px solid var(--paper-3);border-radius:8px;padding:10px 12px}
+.analysis-quote{font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:var(--primary-dark);margin-bottom:6px;word-break:break-word;background:rgba(46,125,90,.06);padding:6px 8px;border-radius:6px}
+.analysis-note{font-size:13px;line-height:1.8;color:var(--ink-2)}
+.analysis-panel.loading .analysis-block{background:linear-gradient(90deg,var(--paper-2) 25%,var(--paper-3) 50%,var(--paper-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;min-height:74px}
+.analysis-panel.loading .analysis-block-title,.analysis-panel.loading .analysis-block-text{opacity:0}
+
+/* ── Word popup ── */
+.word-popup{position:absolute;z-index:500;background:rgba(250,246,238,.97);border:1.5px solid rgba(89,102,86,.12);border-radius:14px;padding:14px 16px;width:300px;max-height:min(72vh,520px);overflow-y:auto;box-shadow:0 18px 40px rgba(31,43,35,.16);font-size:13px;line-height:1.6;display:none;backdrop-filter:blur(10px)}
+.wp-word{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:var(--ink)}
+.wp-pron{font-size:12px;color:var(--ink-3);font-family:'DM Mono',monospace;margin-bottom:8px}
+.wp-def{color:var(--ink-2);margin-bottom:6px;font-size:13px;line-height:1.7}
+.wp-def-main{color:var(--ink);font-size:14px;font-weight:600;margin-bottom:2px}
+.wp-section{margin-top:10px}
+.wp-section:first-of-type{margin-top:0}
+.wp-section-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.wp-example{font-size:13px;line-height:1.7;color:var(--ink-2);padding:10px 12px;background:var(--paper-2);border-radius:8px;border-left:3px solid var(--paper-3);font-style:italic}
+.wp-example-zh{font-size:12px;line-height:1.6;color:var(--ink-3);margin-top:5px;padding:0 2px}
+.wp-memory{padding:10px 12px;border-radius:8px;background:linear-gradient(180deg,#efe7d8,#e7dcc9);color:#5f5033;border-left:3px solid #a47d2f}
+.wp-memory-method{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;opacity:.85}
+.wp-memory-oneline{margin-top:8px;font-size:12px;font-weight:600}
+.wp-actions{display:flex;gap:8px;margin-top:10px}
+.wp-btn{flex:1;padding:7px 8px;border-radius:7px;border:none;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
+.wp-speak{background:var(--accent-light);color:var(--accent)}
+.wp-speak:hover{background:var(--accent);color:white}
+.wp-save{background:var(--primary-light);color:var(--primary-dark)}
+.wp-save:hover{background:var(--primary);color:white}
+
+/* ── Sentence breakdown panel ── */
+.breakdown-panel{border-top:1px solid var(--paper-3);display:none;animation:slideUp .25s ease}
+.breakdown-panel.show{display:block}
+@keyframes slideUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.breakdown-header{padding:14px 20px;background:linear-gradient(135deg,#1e6fb8,#0f3d6e);color:white;display:flex;align-items:center;justify-content:space-between}
+.breakdown-title{font-size:13px;font-weight:500;letter-spacing:.05em;opacity:.9}
+.breakdown-close{background:rgba(255,255,255,.15);border:none;color:white;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.breakdown-body{padding:18px 20px;background:#f8fbff;display:flex;flex-direction:column;gap:14px}
+.bd-sentence{font-family:'Lora',serif;font-size:16px;color:#0f3d6e;line-height:1.7;padding:12px 14px;background:white;border-radius:8px;border-left:4px solid #1e6fb8}
+.bd-section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.bd-meaning{font-size:15px;color:var(--ink);line-height:1.7}
+.bd-structure{font-size:14px;color:var(--ink-2);line-height:1.75;background:white;border-radius:8px;padding:12px 14px;border:1px solid var(--paper-3)}
+.bd-hard{background:var(--warn-light);border-left:3px solid var(--warn);border-radius:8px;padding:12px 14px;font-size:14px;color:#7a4a10;line-height:1.7}
+.bd-speak-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border:1.5px solid #1e6fb8;border-radius:20px;background:transparent;font-size:12px;cursor:pointer;color:#1e6fb8;font-family:'DM Sans',sans-serif;opacity:.75;transition:opacity .2s;margin-top:4px}
+.bd-speak-btn:hover{opacity:1}
+
+
+.summary-section{background:var(--paper-2);border-radius:8px;padding:13px 15px}
+.summary-section-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.summary-text{font-size:14px;line-height:1.75;color:var(--ink-2)}
+.summary-points{list-style:none;display:flex;flex-direction:column;gap:6px}
+.summary-point{font-size:14px;color:var(--ink-2);line-height:1.6;display:flex;gap:8px;align-items:flex-start}
+.summary-point::before{content:"→";color:var(--primary);flex-shrink:0;margin-top:1px}
+
+/* ── Feedback form ── */
+.feedback-form{background:white;border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--paper-3);display:none}
+.feedback-form.show{display:block;animation:slideUp .25s ease}
+.feedback-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:14px}
+.feedback-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.feedback-label{font-size:12px;color:var(--ink-3);margin-bottom:6px;font-weight:500;letter-spacing:.05em}
+.feedback-group{flex:1;min-width:140px}
+.feedback-options{display:flex;gap:6px;flex-wrap:wrap}
+.fb-opt{padding:5px 12px;border:1.5px solid var(--paper-3);border-radius:20px;font-size:12px;cursor:pointer;background:white;color:var(--ink-2);font-family:'DM Sans',sans-serif;transition:all .15s}
+.fb-opt:hover{border-color:var(--primary);color:var(--primary)}
+.fb-opt.selected{border-color:var(--primary);background:var(--primary);color:white}
+.feedback-submit{width:100%;padding:10px;background:var(--primary);color:white;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:6px;transition:background .2s}
+.feedback-submit:hover{background:var(--primary-dark)}
+.feedback-submit:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── Sidebar ── */
+.sidebar-tabs{display:flex;border-bottom:1px solid var(--paper-3)}
+.sidebar-tab{flex:1;padding:12px;border:none;background:transparent;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-3);transition:all .15s;border-bottom:2px solid transparent}
+.sidebar-tab.active{color:var(--primary);border-bottom-color:var(--primary);background:white;font-weight:500}
+.tab-panel{display:none;flex-direction:column;flex:1;overflow:hidden}
+.tab-panel.active{display:flex}
+.sidebar-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--paper-3);flex-shrink:0}
+.sidebar-title{font-size:13px;font-weight:500;color:var(--ink)}
+.clear-btn{font-size:11px;color:var(--ink-3);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:5px;transition:all .15s}
+.clear-btn:hover{background:var(--red-light);color:var(--red)}
+.item-list{flex:1;overflow-y:auto;padding:10px}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:120px;gap:8px;color:var(--ink-3)}
+.empty-icon{font-size:28px}
+.empty-text{font-size:13px;text-align:center;line-height:1.5}
+
+/* ── Vocab card ── */
+.vocab-card{position:relative;background:white;border:1px solid var(--paper-3);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.vc-word{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.vc-pron{font-size:11px;color:var(--ink-3);font-family:'DM Mono',monospace;margin-bottom:5px}
+.vc-def{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:4px}
+.vc-ex{font-size:12px;color:var(--ink-3);font-style:italic;line-height:1.5;border-top:1px solid var(--paper-2);padding-top:5px}
+.vc-meta{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+.vc-date{font-size:11px;color:var(--ink-3)}
+.vc-speak{background:none;border:1.5px solid var(--paper-3);border-radius:6px;padding:3px 9px;font-size:11px;cursor:pointer;color:var(--ink-3);font-family:'DM Sans',sans-serif;transition:all .2s}
+.vc-speak:hover{border-color:var(--accent);color:var(--accent)}
+.del-btn{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--ink-3);cursor:pointer;font-size:13px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .15s}
+.del-btn:hover{background:var(--red-light);color:var(--red)}
+
+/* ── Saved sentence card ── */
+.saved-sent-card{position:relative;background:white;border:1px solid var(--paper-3);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.ss-en{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:4px}
+.ss-zh{font-size:12px;color:var(--ink-3);line-height:1.5}
+.ss-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--ink-3)}
+.ss-speak{background:none;border:1.5px solid var(--paper-3);border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;color:var(--ink-3);font-family:'DM Sans',sans-serif;transition:all .2s}
+.ss-speak:hover{border-color:var(--primary);color:var(--primary)}
+
+/* ── History tab ── */
+.history-card{background:white;border:1px solid var(--paper-3);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.history-card:hover{border-color:var(--primary)}
+.hc-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4;margin-bottom:5px}
+.hc-meta{font-size:11px;color:var(--ink-3);display:flex;gap:8px}
+.hc-badge{padding:2px 7px;border-radius:10px;font-size:10px;font-weight:500}
+
+.export-area{padding:10px;border-top:1px solid var(--paper-2);flex-shrink:0}
+.export-btn{width:100%;padding:8px;border:1px solid var(--paper-3);border-radius:8px;background:white;color:var(--ink-2);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.export-btn:hover{border-color:var(--primary);color:var(--primary)}
+.article-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-top:1px solid var(--paper-3);background:linear-gradient(180deg,#fff,#f8fbf9)}
+.article-footer-meta{font-size:12px;color:var(--ink-3);line-height:1.6}
+.article-footer-actions{display:flex;gap:8px;flex-wrap:wrap}
+.finish-reading-btn{padding:9px 16px;border:none;border-radius:9px;background:var(--primary);color:white;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.finish-reading-btn.done{background:var(--paper-3);color:var(--ink-2);cursor:default}
+.source-panel{display:none;background:white;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--paper-3);padding:14px 18px}
+.source-panel.show{display:block}
+.source-panel-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.source-panel-title{font-size:13px;font-weight:600;color:var(--ink)}
+.source-panel-desc{font-size:12px;color:var(--ink-3);line-height:1.6;margin-top:6px}
+.source-panel-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.source-nav-btn{padding:7px 12px;border-radius:8px;border:1px solid var(--paper-3);background:white;color:var(--ink-2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.source-nav-btn:disabled{opacity:.45;cursor:not-allowed}
+.source-link{font-size:12px;color:var(--accent);text-decoration:none}
+.source-jump{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3)}
+.source-jump input{width:52px;padding:6px 8px;border:1px solid var(--paper-3);border-radius:8px;background:white;color:var(--ink);font-size:12px;font-family:'DM Sans',sans-serif;text-align:center}
+.source-jump button{padding:6px 10px;border-radius:8px;border:1px solid var(--paper-3);background:white;color:var(--ink-2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── Loading skeleton ── */
+.skeleton{background:linear-gradient(90deg,var(--paper-2) 25%,var(--paper-3) 50%,var(--paper-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;height:18px;margin-bottom:10px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.para-speak-btn{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--paper-3);background:white;font-size:12px;cursor:pointer;color:var(--ink-3);transition:all .15s;flex-shrink:0;margin-top:3px;box-shadow:var(--shadow)}
+.para-speak-btn:hover{border-color:var(--primary);color:var(--primary);transform:scale(1.1)}
+.para-wrapper{display:flex;align-items:flex-start;gap:8px;margin-bottom:20px}
+.para-wrapper .article-paragraph{flex:1}
+
+
+/* ── Sentence inline card ── */
+.article-illustration-shell{padding:24px 28px 14px;background:
+radial-gradient(circle at 0% 0%, rgba(34,76,59,.12), transparent 34%),
+radial-gradient(circle at 100% 0%, rgba(164,125,47,.14), transparent 28%),
+linear-gradient(180deg,#f5f0e5,#fbf8f1)}
+.article-illustration-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 2px 12px}
+.article-illustration-kicker{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(252,247,239,.84);backdrop-filter:blur(8px);border:1px solid rgba(89,102,86,.12);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.article-illustration-note{font-size:11px;color:var(--ink-3)}
+.article-illustration-frame{position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(89,102,86,.12);box-shadow:0 24px 56px rgba(31,43,35,.12), inset 0 1px 0 rgba(255,255,255,.6);background:linear-gradient(135deg,#ede6d8,#eef1e7)}
+.article-illustration-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%, rgba(10,20,16,.08) 100%);pointer-events:none}
+.article-illustration-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:linear-gradient(180deg,rgba(252,248,240,.98),rgba(244,239,229,.95));border-top:1px solid rgba(89,102,86,.10)}
+.article-illustration-title{font-family:'Lora',serif;font-size:15px;color:var(--ink)}
+.article-illustration-sub{font-size:11px;color:var(--ink-3)}
+
+/* ── Prefs Modal ── */
+.pref-level-btn{padding:10px 14px;border:1.5px solid rgba(89,102,86,.12);border-radius:10px;background:#fbf7ef;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-2);transition:all .15s;text-align:center;min-width:80px}
+.pref-level-btn:hover{border-color:var(--primary);color:var(--primary)}
+.pref-level-btn.active{border-color:var(--primary);background:var(--primary);color:white}
+.pref-cat-btn{padding:7px 14px;border:1px solid rgba(89,102,86,.12);border-radius:999px;background:#f7f2e8;color:#556559;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;box-shadow:0 1px 0 rgba(255,255,255,.9) inset}
+.pref-cat-btn:hover{transform:translateY(-1px);border-color:rgba(34,76,59,.18);box-shadow:0 8px 16px rgba(31,43,35,.06);background:#f3ede1}
+.pref-cat-btn.active{background:#e1e7dc;border-color:rgba(34,76,59,.22);color:#224c3b;font-weight:500;box-shadow:0 10px 18px rgba(31,43,35,.06)}
+
+/* ── Assisted mode hint bar ── */
+.mode-desc-bar{font-size:12px;color:var(--ink-3);padding:8px 16px;background:var(--warn-light);border-bottom:1px solid #f0d9a0;display:none}
+.mode-desc-bar.show{display:block}
+
+/* ── API Modal ── */
+.api-overlay{position:fixed;inset:0;background:rgba(28,43,32,.55);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(3px)}
+.api-modal{background:white;border-radius:16px;padding:36px;max-width:460px;width:92%;box-shadow:var(--shadow-lg);max-height:90vh;overflow-y:auto;position:relative;z-index:10000}
+.api-modal h2{font-family:'Lora',serif;font-size:26px;margin-bottom:8px;color:var(--ink)}
+.api-modal>p{font-size:14px;color:var(--ink-2);line-height:1.6;margin-bottom:20px}
+.api-modal input{width:100%;padding:11px 15px;border:2px solid var(--paper-3);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;background:var(--paper);outline:none;color:var(--ink);margin-bottom:10px;transition:border-color .2s}
+.api-modal input:focus{border-color:var(--primary)}
+.provider-tab{padding:7px 14px;border:1.5px solid var(--paper-3);border-radius:8px;background:white;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-2);transition:all .15s}
+.provider-tab:hover{border-color:var(--primary);color:var(--primary)}
+.provider-tab.active{border-color:var(--primary);background:var(--primary);color:white}
+.api-actions{display:flex;gap:10px;margin-top:6px}
+.api-secondary{width:42%;padding:12px;background:white;color:var(--ink-2);border:1.5px solid var(--paper-3);border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.api-secondary:hover{border-color:var(--primary);color:var(--primary)}
+.api-submit{width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.api-submit:hover{background:var(--primary-dark)}
+.api-note{font-size:12px;color:var(--ink-3);margin-top:12px;text-align:center}
+.api-note a{color:var(--primary);text-decoration:none}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;padding:10px 20px;border-radius:8px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:10020}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── Loading spinner ── */
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--paper-3);border-radius:2px}
+
+@media (max-width: 1100px){
+  .page-wrap{flex-direction:column}
+  aside{position:static;width:auto;height:auto;border-left:none;border-top:1px solid var(--paper-3)}
+}
+
+@media (max-width: 720px){
+  header{padding:12px 16px}
+  .header-right{gap:10px;font-size:12px}
+  main{padding:18px 16px 28px}
+  .article-body{padding:18px 16px 8px}
+  .article-footer{padding:14px 16px;flex-direction:column;align-items:flex-start}
+  .article-footer-actions{width:100%}
+  .finish-reading-btn,.quick-switch-btn{flex:1}
+}
+</style>
+
+<style>
+.back-home-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 9999;
+  background: rgba(17,17,16,0.82);
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.back-home-btn:hover { background: #111; }
+</style>
+</head>
+<body>
+<a class="back-home-btn" href="javascript:history.back()">← 返回</a>
+
+
+<!-- API Modal -->
+<div class="api-overlay" id="apiSetup">
+  <div class="api-modal">
+    <h2>ReadFlow</h2>
+    <p>选择服务并填写你的 API Key。你也可以先试读一篇固定样例，看看页面的阅读、点词和句子拆解效果。信息只保存在当前浏览器；如在公共电脑上使用，请在结束后清除浏览器数据。</p>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap" id="providerTabs">
+      <button class="provider-tab active" type="button" onclick="selectProvider('openai')"  data-p="openai">ChatGPT</button>
+      <button class="provider-tab"        onclick="selectProvider('gemini')"  data-p="gemini">Gemini</button>
+      <button class="provider-tab"        onclick="selectProvider('glm')"     data-p="glm">智谱 GLM</button>
+      <button class="provider-tab"        onclick="selectProvider('claude')"  data-p="claude">Claude</button>
+      <button class="provider-tab"        onclick="selectProvider('custom')"  data-p="custom">兼容接口</button>
+    </div>
+    <div id="providerHint" style="font-size:12px;color:var(--ink-3);margin-bottom:10px;line-height:1.5"></div>
+    <input type="password" id="apiKeyInput" placeholder="" />
+    <div id="customUrlWrap" style="display:none"><input type="text" id="customUrlInput" placeholder="API 地址，如 https://your-proxy.com/v1" /></div>
+    <div id="customModelWrap" style="display:none"><input type="text" id="customModelInput" placeholder="模型名，如 gpt-4o / deepseek-chat" /></div>
+    <div class="api-actions">
+      <button class="api-secondary" type="button" onclick="loadDemoArticle()">先试用样例</button>
+      <button class="api-submit" type="button" onclick="saveApiKey()">开始阅读 →</button>
+    </div>
+    <p class="api-note" id="apiNote"></p>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <div class="logo-mark" aria-hidden="true"></div>
+    <div class="logo-text">
+      <div class="logo-title">ReadFlow</div>
+      <div class="logo-subtitle">每日英语阅读</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="header-stat"><strong id="totalDays">0</strong>天连续阅读</span>
+    <span class="header-stat"><strong id="totalArticles">0</strong>篇已读</span>
+    <span class="change-ai-btn" onclick="resetApiKey()">服务设置 · <span id="providerBadge">-</span></span>
+  </div>
+</header>
+
+<div class="page-wrap">
+<main>
+
+  <!-- Article meta -->
+  <div class="article-meta-card" id="articleMetaCard">
+    <div class="article-meta-top">
+      <div class="article-title" id="articleTitle">正在准备今日内容…</div>
+      <div class="article-badges">
+        <span class="badge badge-level" id="articleLevel">N+1</span>
+        <span class="badge badge-time" id="articleTime">~5 分钟</span>
+        <span class="badge badge-topic" id="articleTopic">加载中</span>
+      </div>
+    </div>
+    <div class="article-why" id="articleWhy">
+      <strong>推荐理由：</strong><span id="articleWhyText">正在挑选更合适的内容…</span>
+    </div>
+    <div class="focus-word-row" id="focusWordRow" style="display:none">
+      <div class="focus-word-label">今日重点词</div>
+      <div class="focus-word-list" id="focusWordList"></div>
+    </div>
+    <div class="article-meta-actions">
+      <button class="new-article-btn" id="newArticleBtn" onclick="generateArticle()">
+        <div class="spinner" id="genSpinner"></div>
+        <span id="newArticleBtnText">换一篇</span>
+      </button>
+      <button class="new-article-btn" onclick="openPrefs()">阅读偏好</button>
+      <span class="read-status" id="readStatus"></span>
+    </div>
+  </div>
+
+  <!-- Reading card -->
+  <div class="reading-card">
+    <div class="reading-tab-wrap">
+      <div class="reading-mode-tabs">
+        <button class="reading-tab active" data-m="original"  onclick="setReadMode('original')">阅读</button>
+        <button class="reading-tab"        data-m="breakdown" onclick="setReadMode('breakdown')">句子拆解</button>
+        <button class="reading-tab"        data-m="search"    onclick="openSearch('search')">搜索文章</button>
+        <button class="reading-tab"        data-m="paste"     onclick="setReadMode('paste')">粘贴</button>
+      </div>
+      <div class="search-page-pill" id="searchPagePill"></div>
+    </div>
+    <div class="inline-compose" id="inlinePasteComposer">
+      <div class="inline-compose-top">
+        <div>
+          <div class="inline-compose-title">粘贴</div>
+          <div class="inline-compose-desc">把你自己的英文文章直接贴进来。这里不会打断当前页面，导入后会继续进入同一套阅读、点词和句子拆解流程。</div>
+        </div>
+        <button class="inline-compose-close" type="button" onclick="closeInlinePaste()">收起</button>
+      </div>
+      <div class="inline-compose-actions">
+        <button class="fb-opt" type="button" onclick="fillPasteSample()">一键填入示例文章</button>
+      </div>
+      <textarea id="pasteArticleInput" placeholder="把英文文章直接粘贴到这里。ReadFlow 会尽量自动清洗、分页，并接进当前阅读和句子拆解流程。" style="width:100%;min-height:200px;border:1.5px solid var(--paper-3);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.7;font-family:'DM Sans',sans-serif;resize:vertical;background:white;color:var(--ink);margin-bottom:10px"></textarea>
+      <div id="pasteStatus" style="font-size:12px;color:var(--ink-3);margin-bottom:10px;min-height:18px"></div>
+      <div style="font-size:12px;color:var(--ink-3);margin-bottom:14px;padding:8px 12px;background:var(--paper-2);border-radius:7px">
+        ✍️ 这里更适合你自己找到的英文文章、newsletter、截图转出的正文或复制下来的网页内容。接入 API 后，会顺手补重点词和页面摘要；不接 API 也能直接阅读和拆句。
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="api-submit" onclick="importPastedArticle()" style="flex:1" id="pasteSubmitBtn">导入文章 →</button>
+      </div>
+    </div>
+    <div id="readingContentArea">
+      <div id="articleIllustration" style="display:none;overflow:hidden"></div>
+      <div class="article-body" id="articleBody">
+        <div style="padding:20px 0">
+          <div class="skeleton" style="width:90%"></div>
+          <div class="skeleton" style="width:100%"></div>
+          <div class="skeleton" style="width:85%"></div>
+          <div class="skeleton" style="width:95%"></div>
+          <div class="skeleton" style="width:70%"></div>
+        </div>
+      </div>
+      <!-- Inline feedback after article -->
+      <div id="inlineFeedback" style="display:none;padding:16px 24px;border-top:1px solid var(--paper-3);background:var(--paper-2)">
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:12px">这篇读完了！感觉怎么样？</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+          <div>
+            <div style="font-size:11px;color:var(--ink-3);margin-bottom:6px;font-weight:500;letter-spacing:.06em">难度</div>
+            <div style="display:flex;gap:5px" id="fbDifficulty">
+              <button class="fb-opt" data-v="too_easy" onclick="selectFb('difficulty',this)">太简单</button>
+              <button class="fb-opt" data-v="ok"       onclick="selectFb('difficulty',this)">刚好</button>
+              <button class="fb-opt" data-v="too_hard" onclick="selectFb('difficulty',this)">偏难</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--ink-3);margin-bottom:6px;font-weight:500;letter-spacing:.06em">有意思吗</div>
+            <div style="display:flex;gap:5px" id="fbInterest">
+              <button class="fb-opt" data-v="boring"      onclick="selectFb('interest',this)">一般</button>
+              <button class="fb-opt" data-v="ok"          onclick="selectFb('interest',this)">还行</button>
+              <button class="fb-opt" data-v="interesting" onclick="selectFb('interest',this)">有趣</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--ink-3);margin-bottom:6px;font-weight:500;letter-spacing:.06em">主要卡在</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap" id="fbStuck">
+              <button class="fb-opt" data-v="vocab"   onclick="selectFb('stuck',this)">词汇</button>
+              <button class="fb-opt" data-v="grammar" onclick="selectFb('stuck',this)">长句</button>
+              <button class="fb-opt" data-v="topic"   onclick="selectFb('stuck',this)">主题</button>
+              <button class="fb-opt" data-v="none"    onclick="selectFb('stuck',this)">没卡住</button>
+            </div>
+          </div>
+        </div>
+        <button class="feedback-submit" id="feedbackSubmitBtn" onclick="submitFeedback()" style="width:auto;padding:8px 20px;font-size:13px">保存反馈</button>
+      </div>
+      <div class="article-footer" id="articleFooter" style="display:none">
+        <div class="article-footer-meta" id="articleFooterMeta">读完后记一下，推荐和历史才会更准。</div>
+        <div class="article-footer-actions">
+          <button class="finish-reading-btn" id="finishReadingBtn" onclick="finishReading()">读完，加入记录</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="source-panel" id="sourcePanel"></div>
+
+</main>
+
+<!-- Sidebar -->
+<aside>
+  <div class="sidebar-tabs">
+    <button class="sidebar-tab active" onclick="switchTab('vocab')">单词本</button>
+    <button class="sidebar-tab"        onclick="switchTab('sentences')">收藏句子</button>
+    <button class="sidebar-tab"        onclick="switchTab('history')">历史记录</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-vocab">
+    <div class="sidebar-header">
+      <div class="sidebar-title">我的单词本</div>
+      <button class="clear-btn" onclick="clearVocab()">清空</button>
+    </div>
+    <div class="item-list" id="vocabList">
+      <div class="empty-state"><div class="empty-icon">📖</div><div class="empty-text">点击文章中的单词<br>即可查询并收藏</div></div>
+    </div>
+    <div class="export-area"><button class="export-btn" onclick="exportVocab()">导出单词本</button></div>
+  </div>
+
+  <div class="tab-panel" id="tab-sentences">
+    <div class="sidebar-header">
+      <div class="sidebar-title">收藏的句子</div>
+      <button class="clear-btn" onclick="clearSentences()">清空</button>
+    </div>
+    <div class="item-list" id="sentencesList">
+      <div class="empty-state"><div class="empty-icon">✨</div><div class="empty-text">拆解句子后可以<br>一键收藏好句</div></div>
+    </div>
+    <div class="export-area"><button class="export-btn" onclick="exportSentences()">导出收藏句子</button></div>
+  </div>
+
+  <div class="tab-panel" id="tab-history">
+    <div class="sidebar-header">
+      <div class="sidebar-title">阅读记录</div>
+      <button class="clear-btn" onclick="clearHistory()">清空</button>
+    </div>
+    <div class="item-list" id="historyList">
+      <div class="empty-state"><div class="empty-icon">📅</div><div class="empty-text">完成阅读后<br>记录会出现在这里</div></div>
+    </div>
+  </div>
+</aside>
+</div>
+
+
+<!-- Search Modal -->
+<div class="api-overlay" id="searchModal" style="display:none">
+  <div class="api-modal" style="max-width:540px">
+    <h2 style="margin-bottom:6px">搜索文章</h2>
+    <p>搜索英文公开原文。适合想读真实内容时使用，找到后会继续进入当前这套阅读、点词和句子拆解流程。</p>
+
+    <div id="searchModePanel">
+      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap" id="searchExamples">
+        <button class="fb-opt" onclick="fillSearch('Sherlock Holmes')">福尔摩斯</button>
+        <button class="fb-opt" onclick="fillSearch('The Little Prince')">小王子</button>
+        <button class="fb-opt" onclick="fillSearch('Albert Einstein')">爱因斯坦</button>
+        <button class="fb-opt" onclick="fillSearch('Artificial intelligence')">AI</button>
+        <button class="fb-opt" onclick="fillSearch('Steve Jobs')">乔布斯</button>
+        <button class="fb-opt" onclick="fillSearch('Ghibli Studio')">吉卜力</button>
+      </div>
+      <input type="text" id="searchInput" placeholder="输入英文关键词或书名…" style="font-family:'DM Sans',sans-serif;font-size:14px" onkeydown="if(event.key==='Enter')searchAndGenerate()" />
+      <div id="searchStatus" style="font-size:12px;color:var(--ink-3);margin-bottom:10px;min-height:18px"></div>
+      <div style="font-size:12px;color:var(--ink-3);margin-bottom:14px;padding:8px 12px;background:var(--paper-2);border-radius:7px">
+        📖 当前优先搜索维基百科英文条目；如果没有合适结果，会直接提示你更换关键词。
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="api-submit" onclick="searchAndGenerate()" style="flex:1" id="searchSubmitBtn">搜索文章 →</button>
+        <button onclick="closeSearch()" style="padding:12px 18px;border:1.5px solid var(--paper-3);border-radius:8px;background:white;color:var(--ink-2);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Prefs Modal -->
+<div class="api-overlay" id="prefsModal" style="display:none">
+  <div class="api-modal" style="max-width:520px">
+    <h2 style="margin-bottom:6px">阅读偏好</h2>
+    <p>设置你的英语水平和感兴趣的内容，AI 会据此生成更合适的文章。</p>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">我的英语水平</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="levelBtns">
+        <button class="pref-level-btn" data-lv="A0" onclick="selectLevel('A0')">A0 启动<div style="font-size:10px;opacity:.7;margin-top:2px">0-180L</div></button>
+        <button class="pref-level-btn" data-lv="A1" onclick="selectLevel('A1')">A1 入门<div style="font-size:10px;opacity:.7;margin-top:2px">150-320L</div></button>
+        <button class="pref-level-btn active" data-lv="A2" onclick="selectLevel('A2')">A2 基础<div style="font-size:10px;opacity:.7;margin-top:2px">300-520L</div></button>
+        <button class="pref-level-btn" data-lv="B1" onclick="selectLevel('B1')">B1 初中级<div style="font-size:10px;opacity:.7;margin-top:2px">500-720L</div></button>
+        <button class="pref-level-btn" data-lv="B2" onclick="selectLevel('B2')">B2 中高级<div style="font-size:10px;opacity:.7;margin-top:2px">800-1000L</div></button>
+        <button class="pref-level-btn" data-lv="C1" onclick="selectLevel('C1')">C1 高级<div style="font-size:10px;opacity:.7;margin-top:2px">1000-1200L</div></button>
+      </div>
+      <div id="levelDesc" style="font-size:12px;color:var(--ink-3);margin-top:8px;padding:8px 12px;background:var(--paper-2);border-radius:7px;line-height:1.6"></div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">感兴趣的类型 <span style="font-weight:400;text-transform:none;letter-spacing:0">（可多选，不选=随机）</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="catBtns">
+        <button class="pref-cat-btn" data-cat="AI与科技" onclick="toggleCat('AI与科技')">🤖 AI与科技</button>
+        <button class="pref-cat-btn" data-cat="商业故事" onclick="toggleCat('商业故事')">💼 商业故事</button>
+        <button class="pref-cat-btn" data-cat="心理学" onclick="toggleCat('心理学')">🧠 心理学</button>
+        <button class="pref-cat-btn" data-cat="生活随笔" onclick="toggleCat('生活随笔')">☕ 生活随笔</button>
+        <button class="pref-cat-btn" data-cat="漫画与故事" onclick="toggleCat('漫画与故事')">🎌 漫画与故事</button>
+        <button class="pref-cat-btn" data-cat="热门书籍" onclick="toggleCat('热门书籍')">📚 热门书籍</button>
+        <button class="pref-cat-btn" data-cat="短篇故事" onclick="toggleCat('短篇故事')">✍️ 短篇故事</button>
+        <button class="pref-cat-btn" data-cat="设计与创意" onclick="toggleCat('设计与创意')">🎨 设计与创意</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px">
+      <button class="api-submit" onclick="saveAndClosePrefs()" style="flex:1">保存偏好并更新内容</button>
+      <button onclick="closePrefs()" style="padding:12px 18px;border:1.5px solid var(--paper-3);border-radius:8px;background:white;color:var(--ink-2);font-size:14px;cursor:pointer;font-family:DM Sans,sans-serif">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- Word popup -->
+<div class="word-popup" id="wordPopup">
+  <div class="wp-word" id="wpWord"></div>
+  <div class="wp-pron" id="wpPron"></div>
+  <div class="wp-section">
+    <div class="wp-section-title">词义</div>
+    <div class="wp-def" id="wpDef">查询中…</div>
+  </div>
+  <div class="wp-section" id="wpContextWrap" style="display:none">
+    <div class="wp-section-title">句中意思</div>
+    <div class="wp-def" id="wpContext"></div>
+  </div>
+  <div class="wp-section" id="wpMemoryWrap" style="display:none">
+    <div class="wp-section-title">记忆技巧</div>
+    <div class="wp-memory">
+      <div class="wp-memory-method" id="wpMemoryMethod"></div>
+      <div id="wpMemoryText"></div>
+      <div class="wp-memory-oneline" id="wpMemoryOneLine"></div>
+    </div>
+  </div>
+  <div class="wp-actions">
+    <button class="wp-btn wp-speak" id="wpSpeakBtn">发音</button>
+    <button class="wp-btn wp-save"  id="wpSaveBtn">收藏</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+// ── Storage Shim (works in data: URI iframes where localStorage is blocked) ──
+const _store = {};
+const _safeStorage = {
+  getItem(k) { try { return _safeStorage.getItem(k); } catch(e) { return _store[k] ?? null; } },
+  setItem(k, v) { try { _safeStorage.setItem(k, v); } catch(e) {} _store[k] = String(v); },
+  removeItem(k) { try { _safeStorage.removeItem(k); } catch(e) {} delete _store[k]; }
+};
+
+// ── Config ──────────────────────────────────────────────────────────────────
+const PROVIDERS = {
+  openai: { name:'ChatGPT',  placeholder:'sk-...',           hint:'GPT-4o mini，效果好且便宜',           note:'获取：<a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a>', model:'gpt-4o-mini', url:'https://api.openai.com/v1/chat/completions' },
+  gemini: { name:'Gemini',   placeholder:'AIzaSy...',        hint:'Gemini 1.5 Flash，每天免费 1500 次',  note:'获取：<a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com</a>',  model:'gemini-2.0-flash', url:null },
+  glm:    { name:'智谱 GLM', placeholder:'智谱 API Key',      hint:'GLM-4-Flash，国内访问快，有免费额度', note:'获取：<a href="https://open.bigmodel.cn" target="_blank">open.bigmodel.cn</a>',             model:'glm-4-flash', url:'https://open.bigmodel.cn/api/paas/v4/chat/completions' },
+  claude: { name:'Claude',   placeholder:'sk-ant-api03-...', hint:'Claude Haiku，速度快费用低',          note:'获取：<a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>',   model:'claude-haiku-4-5-20251001', url:'https://api.anthropic.com/v1/messages' },
+  custom: { name:'兼容接口', placeholder:'API Key',          hint:'兼容 OpenAI 格式：DeepSeek / Moonshot / Ollama 等', note:'填写接口地址和模型名', model:'', url:'' },
+};
+
+// ── 分类主题库 ────────────────────────────────────────────────────────────────
+const TOPIC_CATEGORIES = {
+  'AI与科技':   ['AI 与未来工作', '大模型背后的故事', '科技公司决策', '芯片与算力', '机器人日常'],
+  '商业故事':   ['创业从零到一', '失败的商业决策', '品牌背后的故事', '职场生存法则', '谈判技巧'],
+  '心理学':     ['为什么我们拖延', '记忆是如何工作的', '习惯的科学', '人际关系心理', '情绪管理'],
+  '生活随笔':   ['城市生活观察', '旅行中的意外', '食物与文化', '极简主义生活', '一个人的周末'],
+  '漫画与故事': ['漫威英雄的起源', '宫崎骏的世界观', '经典漫画名场面', '超级英雄的道德困境', '动漫改编的文化现象'],
+  '热门书籍':   ['《原子习惯》精华', '《思考快与慢》解析', '《人类简史》片段', '畅销小说的开篇', '非虚构写作技巧'],
+  '短篇故事':   ['五分钟推理小故事', '现代都市寓言', '职场小说片段', '科幻微小说', '温馨生活故事'],
+  '设计与创意': ['好设计从哪里来', '颜色的心理学', '字体设计的秘密', '用户体验设计思维', '创意来自哪里'],
+};
+
+// 难度与蓝思值映射
+const LEVEL_CONFIG = {
+  'A0': { label:'A0 启动', lexile:'0-180L', words:'60-90', sentences:'4-8词为主', vocab:'极高频生活词' },
+  'A1': { label:'A1 入门', lexile:'150-320L', words:'80-110', sentences:'6-10词为主', vocab:'基础常用词' },
+  'A2': { label:'A2 基础', lexile:'300-520L', words:'100-140', sentences:'8-13词为主', vocab:'基础词汇 + 少量常见短语' },
+  'B1': { label:'B1 初中级', lexile:'500-720L', words:'140-190', sentences:'10-18词为主', vocab:'B1词汇，极少量B2' },
+  'B2': { label:'B2 中高级', lexile:'800-1000L', words:'200-250', sentences:'15-25词为主', vocab:'B2词汇，少量C1' },
+  'C1': { label:'C1 高级', lexile:'1000-1200L', words:'250-300', sentences:'20-30词为主', vocab:'C1词汇，学术/专业词' },
+};
+
+// 用户偏好（从localStorage读取）
+function getPrefs() {
+  try { return JSON.parse(_safeStorage.getItem('rf_prefs') || '{}'); } catch { return {}; }
+}
+function savePrefs(p) { _safeStorage.setItem('rf_prefs', JSON.stringify(p)); }
+
+// ── State ────────────────────────────────────────────────────────────────────
+let currentProvider = 'openai';
+let currentReadMode = 'original';
+let currentArticle  = null;    // { title, topic, level, time, why, paragraphs:[], sentences:[] }
+let currentSentence = null;
+let vocab           = [];
+let savedSentences  = [];
+let readHistory     = [];
+let wordCache       = {};
+let popupWord       = null;
+let popupAnchorEl   = null;
+let fbState         = { difficulty:'', interest:'', stuck:'' };
+let availableVoices = [];
+let currentVoiceIdx = 0;
+let sentenceCache   = {};
+let sentenceBatchCache = {};
+let sentenceDetailCache = {};
+let sentencePrefetchToken = 0;
+let expandedSentenceKeys = new Set();
+let currentSourcePageIndex = 0;
+let currentSentencePageIndex = 0;
+
+const DEMO_ARTICLE = {
+  title:'Why Clear Prompts Matter',
+  topic:'AI 与表达',
+  category:'工作与表达',
+  level:'A2-B1',
+  reading_minutes:'~4 分钟',
+  why_recommended:'先用一篇短样例感受点词和拆句效果。',
+  challenge_hint:'试用样例',
+  focus_words:['prediction','patterns','specific','prompt'],
+  paragraphs:[
+    'Large language models are like prediction engines. They do not think like humans, but they can spot patterns in huge amounts of text. This helps them answer questions quickly.',
+    'When you use one at work, the real skill is asking clearly. A short, specific prompt often gives a better result than a long confusing one.'
+  ],
+  isDemo:true,
+  isReal:false
+};
+
+const EASY_HARD_WORDS = new Set([
+  'people','person','small','large','important','simple','group','system','story','world','change','work','working','worked',
+  'make','made','making','good','better','best','big','little','house','water','food','family','friend','school','city','country',
+  'happy','sad','young','older','learn','reading','write','talk','said','says','think','thought','know','known','look','looked',
+  'today','yesterday','tomorrow','week','month','year','morning','night','child','children','problem','answer','question','reason'
+]);
+
+const EXTRA_COMMON_WORDS = new Set([
+  'using','often','really','around','during','before','after','inside','outside','building','making','system','future','common',
+  'minute','minutes','process','because','different','another','example','usually','already','follow','follows','show','shows',
+  'shown','large','early','later','robot','robots','daily','modern','simple','basic','important','group','people','thing','things'
+]);
+
+const FOCUS_WORD_STOPWORDS = new Set([
+  'people','person','small','large','important','simple','common','system','story','world','change','changing','work','working','worked',
+  'make','made','making','good','better','best','big','little','house','water','food','family','friend','school','city','country',
+  'happy','sad','young','older','learn','learning','reading','write','talk','said','says','think','thought','know','known','look','looked',
+  'today','yesterday','tomorrow','week','month','year','morning','night','child','children','problem','answer','question','reason',
+  'using','used','often','really','around','during','before','after','inside','outside','building','future','minute','minutes',
+  'because','different','another','example','usually','already','follow','follows','show','shows','shown','daily','modern','basic',
+  'group','thing','things','robot','robots','technology','business','design','creative','storytelling','interesting','started','starting',
+  'changeable','moving','changes','create','creates','created','creating','process','general','public','level','levels','article'
+]);
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+window.onload = () => {
+  const hasApiKey = !!_safeStorage.getItem('rf_api_key');
+  selectProvider(_safeStorage.getItem('rf_provider') || 'openai');
+  if (hasApiKey) {
+    document.getElementById('apiSetup').style.display = 'none';
+  }
+  loadData();
+  updateStats();
+  updateProviderBadge();
+
+  document.getElementById('wpSpeakBtn').onclick = () => { if (popupWord) speakText(popupWord); };
+  document.getElementById('wpSaveBtn').onclick  = saveCurrentWord;
+  document.addEventListener('click', e => {
+    const popup = document.getElementById('wordPopup');
+    if (popup.style.display !== 'none' && !popup.contains(e.target) && !e.target.classList.contains('wt')) {
+      popup.style.display = 'none';
+      popupAnchorEl = null;
+    }
+  });
+  window.addEventListener('scroll', positionWordPopup, true);
+  window.addEventListener('resize', positionWordPopup);
+  window.speechSynthesis && initVoices();
+
+  if (hasApiKey) {
+    generateArticle();
+    return;
+  }
+  loadDemoArticle(true);
+};
+
+// ── Provider ─────────────────────────────────────────────────────────────────
+function selectProvider(p) {
+  currentProvider = p;
+  document.querySelectorAll('.provider-tab').forEach(t => t.classList.toggle('active', t.dataset.p === p));
+  const cfg = PROVIDERS[p];
+  document.getElementById('apiKeyInput').placeholder  = cfg.placeholder;
+  document.getElementById('providerHint').textContent = cfg.hint;
+  document.getElementById('apiNote').innerHTML        = cfg.note;
+  document.getElementById('customUrlWrap').style.display   = p==='custom'?'block':'none';
+  document.getElementById('customModelWrap').style.display = p==='custom'?'block':'none';
+}
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key || key.length < 8) { showToast('请填写有效的 API Key'); return; }
+  if (currentProvider === 'custom') {
+    const url = document.getElementById('customUrlInput').value.trim();
+    if (!url) { showToast('请填写 API 地址'); return; }
+    _safeStorage.setItem('rf_custom_url', url);
+    _safeStorage.setItem('rf_custom_model', document.getElementById('customModelInput').value.trim());
+  }
+  _safeStorage.setItem('rf_api_key', key);
+  _safeStorage.setItem('rf_provider', currentProvider);
+  document.getElementById('apiSetup').style.display = 'none';
+  updateProviderBadge();
+  generateArticle();
+}
+function resetApiKey() {
+  document.getElementById('apiKeyInput').value = '';
+  selectProvider(_safeStorage.getItem('rf_provider') || 'openai');
+  document.getElementById('apiSetup').style.display = 'flex';
+}
+function updateProviderBadge() {
+  const badge = document.getElementById('providerBadge');
+  if (!_safeStorage.getItem('rf_api_key') && currentArticle?.isDemo) {
+    badge.textContent = '试用中';
+    return;
+  }
+  badge.textContent = PROVIDERS[_safeStorage.getItem('rf_provider')||'openai']?.name || '-';
+}
+
+function loadDemoArticle(silent = false) {
+  const article = JSON.parse(JSON.stringify(DEMO_ARTICLE));
+  document.getElementById('apiSetup').style.display = 'none';
+  hydrateArticle(article);
+  installDemoArticleData(article);
+  updateProviderBadge();
+  if (currentReadMode === 'breakdown' && currentArticle) renderArticle(currentArticle);
+  if (!silent) showToast('已进入试用样例');
+}
+
+function installDemoArticleData(article) {
+  if (!article?.isDemo) return;
+  const key = getArticleCacheKey(article);
+  const analysisMap = getDemoSentenceAnalysisMap();
+  const detailMap = getDemoSentenceDetailMap();
+  sentenceBatchCache[key] = { ...(sentenceBatchCache[key] || {}), ...analysisMap };
+  sentenceCache = sentenceBatchCache[key];
+  sentenceDetailCache = { ...detailMap };
+}
+
+function getDemoSentenceAnalysisMap() {
+  return {
+    'large language models are like prediction engines.': {
+      zh: '大语言模型有点像预测引擎。'
+    },
+    'they do not think like humans, but they can spot patterns in huge amounts of text.': {
+      zh: '它们不会像人类那样思考，但能在大量文本里发现规律。'
+    },
+    'this helps them answer questions quickly.': {
+      zh: '这让它们能更快回答问题。'
+    },
+    'when you use one at work, the real skill is asking clearly.': {
+      zh: '当你在工作中使用它时，真正重要的能力是把问题问清楚。'
+    },
+    'a short, specific prompt often gives a better result than a long confusing one.': {
+      zh: '一个简短而具体的提示语，往往比又长又乱的提示语效果更好。'
+    }
+  };
+}
+
+function getDemoSentenceDetailMap() {
+  return {
+    'large language models are like prediction engines.': {
+      core: [
+        { en: 'Large language models are like prediction engines', zh: '这一整块是主干，意思是大语言模型像一种“预测引擎”。' }
+      ],
+      extra: [
+        { en: 'like prediction engines', zh: '这里是在打比方，帮助你快速理解它的工作方式。' }
+      ],
+      order: [
+        { en: 'Large language models', zh: '先看主语，先知道这句话在讲谁。' },
+        { en: 'are like prediction engines', zh: '再看后半句，抓住“像什么”。' }
+      ]
+    },
+    'they do not think like humans, but they can spot patterns in huge amounts of text.': {
+      core: [
+        { en: 'They do not think like humans', zh: '先抓第一层主干，表示它们并不会像人一样思考。' },
+        { en: 'they can spot patterns', zh: '再抓第二层主干，表示它们能发现规律。' }
+      ],
+      extra: [
+        { en: 'in huge amounts of text', zh: '这一块补充说明这些规律是从大量文本里找出来的。' }
+      ],
+      order: [
+        { en: 'They do not think like humans', zh: '先读前半句，知道它“不像人脑思考”。' },
+        { en: 'but they can spot patterns', zh: '再看转折后的重点，知道它真正擅长什么。' },
+        { en: 'in huge amounts of text', zh: '最后补上范围，知道它是在哪里发现规律。' }
+      ]
+    },
+    'this helps them answer questions quickly.': {
+      core: [
+        { en: 'This helps them answer questions', zh: '主干是“这件事帮助它们回答问题”。' }
+      ],
+      extra: [
+        { en: 'quickly', zh: '这里补充说明回答问题的速度更快。' }
+      ],
+      order: [
+        { en: 'This helps them', zh: '先看前半句，知道“这会帮助它们”。' },
+        { en: 'answer questions quickly', zh: '再看后半句，知道帮助体现在哪里。' }
+      ]
+    },
+    'when you use one at work, the real skill is asking clearly.': {
+      core: [
+        { en: 'the real skill is asking clearly', zh: '主干是“真正的能力，是把问题问清楚”。' }
+      ],
+      extra: [
+        { en: 'When you use one at work', zh: '这一块是时间和场景背景，表示当你在工作里用它时。' }
+      ],
+      order: [
+        { en: 'When you use one at work', zh: '先把前面的使用场景带进去。' },
+        { en: 'the real skill is asking clearly', zh: '再看真正要表达的核心观点。' }
+      ]
+    },
+    'a short, specific prompt often gives a better result than a long confusing one.': {
+      core: [
+        { en: 'A short, specific prompt often gives a better result', zh: '主干是“一个简短具体的提示语，常常会带来更好的结果”。' }
+      ],
+      extra: [
+        { en: 'than a long confusing one', zh: '这一块是在做比较，和又长又乱的提示语相比。' }
+      ],
+      order: [
+        { en: 'A short, specific prompt', zh: '先看主语，抓住什么样的提示语。' },
+        { en: 'often gives a better result', zh: '再看它带来的结果。' },
+        { en: 'than a long confusing one', zh: '最后补上比较对象，理解为什么前者更好。' }
+      ]
+    }
+  };
+}
+
+function buildFallbackDetail(sentence) {
+  // 对 demo 文章中没有预设数据的句子，自动拆解主谓宾结构作为兜底展示
+  const s = sentence.trim();
+  // 简单找主语（句首到第一个动词前）
+  const words = s.replace(/[.,!?;:]/g, '').split(/\s+/);
+  const subject = words.slice(0, Math.min(3, Math.ceil(words.length * 0.35))).join(' ');
+  const rest    = words.slice(Math.min(3, Math.ceil(words.length * 0.35))).join(' ');
+  return {
+    core: [
+      { en: s, zh: '这是这句话的完整主干，先整体读一遍，抓住句子说的是什么。' }
+    ],
+    extra: [
+      { en: subject || words[0], zh: '这一块是主语，说明"谁"或"什么"在做这件事。' },
+      { en: rest || words.slice(1).join(' '), zh: '这一块是谓语和其余部分，说明"做了什么"或"是什么状态"。' }
+    ],
+    order: [
+      { en: subject || words[0], zh: '先看主语，搞清楚句子在说谁。' },
+      { en: rest || s, zh: '再看后半部分，找到核心动作或状态。' }
+    ]
+  };
+}
+
+function getDemoWordData(word) {
+  const key = String(word || '').toLowerCase();
+  const map = {
+    prediction: {
+      pronunciation: '/prɪˈdɪk.ʃən/',
+      definitions: [
+        { pos: 'n.', zh: '预测', en: 'a statement about what may happen' }
+      ],
+      context_zh: '在这篇文章里，它指模型会根据已有内容去预测下一个最可能出现的词。 ',
+      memory_tip: {
+        method: '词根拆解法',
+        content: 'pre- 有“提前”的意思，prediction 就是“提前说出会发生什么”。',
+        one_line: 'prediction = 提前判断会发生什么'
+      }
+    },
+    patterns: {
+      pronunciation: '/ˈpæt.ərnz/',
+      definitions: [
+        { pos: 'n.', zh: '规律；模式', en: 'repeated forms or regular ways something appears' }
+      ],
+      context_zh: '这里指文本里反复出现的规律和搭配方式。',
+      memory_tip: {
+        method: '场景故事法',
+        content: '看到很多相似例子后，你就会发现一个固定“套路”，这就是 pattern。',
+        one_line: 'pattern = 反复出现的规律'
+      }
+    },
+    specific: {
+      pronunciation: '/spəˈsɪf.ɪk/',
+      definitions: [
+        { pos: 'adj.', zh: '具体的；明确的', en: 'clear and exact, not general' }
+      ],
+      context_zh: '这里强调提示语要说得具体，不要模糊。',
+      memory_tip: {
+        method: '对比记忆法',
+        content: 'specific 对比 general，前者具体，后者笼统。',
+        one_line: 'specific = 说得很具体'
+      }
+    },
+    prompt: {
+      pronunciation: '/prɒmpt/',
+      definitions: [
+        { pos: 'n.', zh: '提示语；指令', en: 'the input you give an AI system' }
+      ],
+      context_zh: '在 AI 场景里，它就是你输入给模型的那句话或要求。',
+      memory_tip: {
+        method: '场景故事法',
+        content: '你对 AI 说的第一句话，就是 prompt。',
+        one_line: 'prompt = 你给 AI 的提示语'
+      }
+    }
+  };
+  if (map[key]) return map[key];
+  return {
+    pronunciation: '',
+    definitions: [
+      { pos: '', zh: '这是试用模式下的示例释义。', en: `In this sample article, "${word}" is shown as a reading vocabulary item.` }
+    ],
+    context_zh: '接入 API 后，这里会结合你当前文章语境给出更准确的解释。',
+    memory_tip: {
+      method: '场景故事法',
+      content: '先用试用样例感受点词体验，接入 API 后会替换成真实查词结果。',
+      one_line: '试用模式下可先看交互结构'
+    }
+  };
+}
+
+// ── AI Call ───────────────────────────────────────────────────────────────────
+async function callAI(prompt, options = {}) {
+  const apiKey  = _safeStorage.getItem('rf_api_key');
+  const provider = _safeStorage.getItem('rf_provider') || 'openai';
+  if (!apiKey) throw new Error('请先配置 API Key');
+  const maxTokens = options.maxTokens || 2000;
+  const temperature = options.temperature ?? 0.45;
+
+  // Gemini special
+  if (provider === 'gemini') {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{temperature,maxOutputTokens:maxTokens}
+      })
+    });
+    const d = await res.json();
+    if (d.error) throw new Error(d.error.message);
+    return d.candidates[0].content.parts[0].text;
+  }
+  // Claude special
+  if (provider === 'claude') {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:maxTokens, temperature, messages:[{role:'user',content:prompt}] })
+    });
+    const d = await res.json();
+    if (d.error) throw new Error(d.error.message||JSON.stringify(d.error));
+    return d.content[0].text;
+  }
+  // OpenAI-compatible
+  const cfg = provider==='custom'
+    ? {url:_safeStorage.getItem('rf_custom_url'), model:_safeStorage.getItem('rf_custom_model')||'gpt-4o-mini'}
+    : PROVIDERS[provider];
+  const res = await fetch(cfg.url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},
+    body: JSON.stringify({ model:cfg.model, max_tokens:maxTokens, temperature, messages:[{role:'user',content:prompt}] })
+  });
+  const d = await res.json();
+  if (d.error) throw new Error(d.error.message||JSON.stringify(d.error));
+  return d.choices[0].message.content;
+}
+
+// ── Generate Article ─────────────────────────────────────────────────────────
+async function generateArticle() {
+  if (!_safeStorage.getItem('rf_api_key')) {
+    document.getElementById('apiSetup').style.display = 'flex'; return;
+  }
+  const prefs = getPrefs();
+  const level = prefs.level || 'A2';
+  const levelCfg = LEVEL_CONFIG[level];
+  
+  // Pick topic from preferred category or random
+  const cats = Object.keys(TOPIC_CATEGORIES);
+  const prefCats = prefs.categories?.length ? prefs.categories : cats;
+  const cat = prefCats[Math.floor(Math.random() * prefCats.length)];
+  const topics = TOPIC_CATEGORIES[cat] || TOPIC_CATEGORIES['生活随笔'];
+  const topic = topics[Math.floor(Math.random() * topics.length)];
+
+  const profile = buildProfile();
+
+  setGenLoading(true);
+  document.getElementById('inlineFeedback').style.display = 'none';
+  resetFeedback();
+
+  const prompt = `You are an English reading assistant for a Chinese learner.
+
+Generate a SHORT English article for daily N+1 reading practice.
+N+1 principle: ~80% understandable from context, only ~20% slightly challenging. 
+CRITICAL: DO NOT exceed the target level. For A1/A2, use ONLY very basic everyday vocabulary.
+
+Topic: ${topic}
+Category: ${cat}
+Target level: ${level} (${levelCfg.label})
+Lexile target: ${levelCfg.lexile}
+Sentence length: ${levelCfg.sentences}
+Vocabulary requirement: ${levelCfg.vocab}
+${profile ? 'User feedback: ' + profile : ''}
+
+STRICT requirements:
+- For A0: use only ultra-basic daily words. Max 8 words per sentence. Prefer present tense and concrete actions.
+- For A1: ONLY use words like go, eat, like, good, big, small, day, time, people, work, etc. Max 10 words per sentence.
+- For A2: Use simple past/present/future, basic adjectives. Max 14 words per sentence.
+- For B1: Some compound sentences OK. Occasional less-common words with clear context.
+- For B2+: Can use more complex grammar, subject-specific vocab, longer sentences.
+- 4-5 paragraphs, natural engaging writing
+- Focus words: list 5-8 reading focus words. These should be topic-bearing or useful unfamiliar words, not simple daily words.
+- If topic is manga/book/story: write like a vivid scene or intro passage, NOT academic analysis
+
+Respond ONLY with valid JSON, no markdown:
+{
+  "title": "<engaging title>",
+  "topic": "${topic}",
+  "category": "${cat}",
+  "level": "${level}",
+  "lexile_estimate": "<e.g. 520L>",
+  "estimated_time": "<e.g. 3 分钟>",
+  "why_recommended": "<25字以内，中文>",
+  "challenge_hint": "<15字以内，中文>",
+  "focus_words": ["actualword1","actualword2","actualword3"],
+  "paragraphs": ["full paragraph text 1","full paragraph text 2","full paragraph text 3","full paragraph text 4"]
+}
+
+CRITICAL: In paragraphs, write the actual complete English text. NEVER use placeholders like <word1>, [word], {{placeholder}} or any template syntax. Write real complete sentences only.`;
+
+  try {
+    const raw  = await callAI(prompt, { maxTokens: 1500, temperature: 0.35 });
+    const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    hydrateArticle(data);
+  } catch(err) {
+    showToast('暂时无法生成内容，请稍后重试');
+    document.getElementById('articleBody').innerHTML = `<div style="padding:20px;color:var(--red);font-size:14px">暂时无法生成内容，请稍后再试，或检查当前服务设置。</div>`;
+  }
+  setGenLoading(false);
+}
+
+
+function buildProfile() {
+  const history = readHistory.slice(0, 5);
+  if (!history.length) return '';
+  const feedbacks = history.filter(h => h.feedback);
+  if (!feedbacks.length) return '';
+  const last = feedbacks[0].feedback;
+  const parts = [];
+  if (last.difficulty === 'too_hard') parts.push('recent articles were too hard, use simpler vocabulary');
+  if (last.difficulty === 'too_easy') parts.push('recent articles were too easy, can increase difficulty slightly');
+  if (last.stuck === 'vocab') parts.push('struggles with vocabulary, prefer more common words');
+  if (last.stuck === 'grammar') parts.push('struggles with long sentences, prefer shorter sentences');
+  if (last.interest === 'boring') parts.push('found recent topic uninteresting');
+  return parts.join('; ');
+}
+
+function setGenLoading(on) {
+  const btn = document.getElementById('newArticleBtn');
+  btn.disabled = on;
+  document.getElementById('genSpinner').style.display = on ? 'inline-block' : 'none';
+  document.getElementById('newArticleBtnText').textContent = on ? '生成中…' : '换一篇';
+  if (on) {
+    document.getElementById('articleIllustration').style.display = 'none';
+    document.getElementById('articleTitle').textContent = '正在准备今日内容…';
+    document.getElementById('articleBody').innerHTML = `<div style="padding:20px 0">
+      <div class="skeleton" style="width:88%"></div>
+      <div class="skeleton" style="width:100%"></div>
+      <div class="skeleton" style="width:82%"></div>
+      <div class="skeleton" style="width:95%"></div>
+      <div class="skeleton" style="width:75%"></div>
+      <div class="skeleton" style="width:90%"></div>
+    </div>`;
+  }
+}
+
+function updateMeta(data) {
+  document.getElementById('articleTitle').textContent   = data.title || '';
+  const levelCfg = LEVEL_CONFIG[data.level] || {};
+  document.getElementById('articleLevel').textContent   = (data.lexile_estimate ? data.lexile_estimate + ' · ' : '') + (levelCfg.label || data.level || 'N+1');
+  document.getElementById('articleTime').textContent    = data.estimated_time || '~5 分钟';
+  document.getElementById('articleTopic').textContent   = data.category || data.topic || '';
+  document.getElementById('articleWhyText').textContent = normalizeMetaCopy(data.why_recommended, '为你挑了一篇更合适的内容。', 28);
+  const challengeHint = normalizeMetaHint(data.challenge_hint);
+  document.getElementById('readStatus').textContent     = challengeHint ? challengeHint : '';
+  const focusRow = document.getElementById('focusWordRow');
+  const focusList = document.getElementById('focusWordList');
+  const focusWords = (data.focus_words || []).slice(0, 6);
+  if (focusWords.length) {
+    focusList.innerHTML = focusWords.map(word => `<span class="focus-word-chip">${word}</span>`).join('');
+    focusRow.style.display = 'flex';
+  } else {
+    focusList.innerHTML = '';
+    focusRow.style.display = 'none';
+  }
+}
+
+function normalizeMetaCopy(text, fallback = '', maxLen = 24) {
+  const value = String(text || '').trim();
+  if (!value) return fallback;
+  // 头部短文案默认只接受中文，避免模型偶发输出英文或夹杂提示词味表达。
+  if (!/[\u4e00-\u9fff]/.test(value)) return fallback;
+  const compact = value.replace(/\s+/g, ' ').trim();
+  return compact.length > maxLen ? compact.slice(0, maxLen) : compact;
+}
+
+function normalizeMetaHint(text) {
+  return normalizeMetaCopy(text, '', 24);
+}
+
+function normalizeLexileEstimate(value) {
+  const text = String(value || '').replace(/[<>]/g, '').trim();
+  if (!text) return '';
+  if (/^e\.?g\.?/i.test(text)) return '';
+  if (/word\d+/i.test(text)) return '';
+  return text;
+}
+
+function hydrateArticle(data) {
+  data.focus_words = normalizeFocusWords(data.focus_words || data.hard_words || [], data.paragraphs || []);
+  currentArticle = data;
+  currentSourcePageIndex = 0;
+  currentSentencePageIndex = 0;
+  sentenceCache = sentenceBatchCache[getArticleCacheKey(data)] || {};
+  sentenceDetailCache = {};
+  expandedSentenceKeys.clear();
+  currentArticle.fullParagraphs = [...(
+    data.fullParagraphs ||
+    (data.sourcePages ? data.sourcePages.flat() : null) ||
+    data.paragraphs ||
+    []
+  )];
+  currentArticle.pages = data.pages || data.sourcePages || paginateParagraphs(currentArticle.fullParagraphs);
+  currentArticle.paragraphs = currentArticle.pages[0] || [];
+  closeBreakdown();
+  document.getElementById('inlineFeedback').style.display = 'none';
+  resetFeedback();
+  renderArticle(data);
+  updateMeta(data);
+  generateIllustration(data.title, data.category, data.topic);
+  renderSourcePanel();
+  updateArticleFooter();
+  prefetchSentenceAnalyses(currentArticle);
+}
+
+function normalizeFocusWords(words, paragraphs = []) {
+  const articleWords = (paragraphs.join(' ').match(/[A-Za-z'-]+/g) || [])
+    .map(word => String(word).trim())
+    .filter(Boolean);
+  const freq = {};
+  articleWords.forEach(word => {
+    const key = normalizeWordBase(word);
+    if (!key) return;
+    freq[key] = (freq[key] || 0) + 1;
+  });
+
+  const aiWords = (words || [])
+    .map(word => String(word).trim())
+    .filter(word => /^[A-Za-z'-]+$/.test(word));
+
+  const candidates = [...new Set([
+    ...aiWords,
+    ...articleWords.filter(word => word.length >= 6)
+  ])]
+    .map(word => ({ word, base: normalizeWordBase(word) }))
+    .filter(item => item.base)
+    .filter(item => !FOCUS_WORD_STOPWORDS.has(item.base))
+    .filter(item => !EASY_HARD_WORDS.has(item.base))
+    .filter(item => !EXTRA_COMMON_WORDS.has(item.base));
+
+  const scored = candidates.map(item => {
+    let score = 0;
+    if (aiWords.some(word => normalizeWordBase(word) === item.base)) score += 8;
+    if ((freq[item.base] || 0) >= 2) score += 3;
+    if (item.word.length >= 9) score += 2;
+    if (/(tion|sion|ment|ness|ship|ology|ality|ative|izing|ising|ously|ically|ically|ance|ence|ism|ist|ical)$/i.test(item.word)) score += 3;
+    if (/^[A-Z][a-z]+$/.test(item.word)) score += 1;
+    if (/(ing|ed)$/i.test(item.word) && item.word.length >= 7) score += 1;
+    return { ...item, score };
+  })
+    .sort((a, b) => b.score - a.score || b.word.length - a.word.length || a.word.localeCompare(b.word))
+    .filter(item => item.score >= 3);
+
+  const result = [];
+  const seen = new Set();
+  scored.forEach(item => {
+    if (seen.has(item.base)) return;
+    seen.add(item.base);
+    result.push(item.word);
+  });
+  return result.slice(0, 10);
+}
+
+function normalizeWordBase(word) {
+  const lower = String(word || '').toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, '');
+  if (!lower || lower.length < 4) return '';
+  if (lower.endsWith('ies') && lower.length > 5) return lower.slice(0, -3) + 'y';
+  if (lower.endsWith('ing') && lower.length > 6) {
+    let base = lower.slice(0, -3);
+    if (/([b-df-hj-np-tv-z])\1$/.test(base)) base = base.slice(0, -1);
+    else if (!base.endsWith('e') && /(chang|mak|tak|mov|usin)$/.test(base)) base += 'e';
+    return base;
+  }
+  if (lower.endsWith('ed') && lower.length > 5) {
+    let base = lower.slice(0, -2);
+    if (/([b-df-hj-np-tv-z])\1$/.test(base)) base = base.slice(0, -1);
+    else if (!base.endsWith('e') && /(chang|clos|us)$/.test(base)) base += 'e';
+    return base;
+  }
+  if (lower.endsWith('es') && lower.length > 5) return lower.slice(0, -2);
+  if (lower.endsWith('s') && lower.length > 4) return lower.slice(0, -1);
+  return lower;
+}
+
+function paginateParagraphs(paragraphs, targetWords = 175, maxWords = 205) {
+  const sentences = (paragraphs || []).flatMap(splitSentences).map(s => s.trim()).filter(Boolean);
+  const pages = [];
+  let page = [];
+  let pageWords = 0;
+  let block = [];
+  let blockWords = 0;
+
+  const pushBlock = () => {
+    if (!block.length) return;
+    page.push(block.join(' '));
+    block = [];
+    blockWords = 0;
+  };
+
+  const pushPage = () => {
+    pushBlock();
+    if (!page.length) return;
+    pages.push(page);
+    page = [];
+    pageWords = 0;
+  };
+
+  sentences.forEach(sentence => {
+    const words = sentence.split(/\s+/).filter(Boolean).length;
+    if (pageWords + words > maxWords && pageWords >= 130) pushPage();
+    if (blockWords + words > 80 || block.length >= 2) pushBlock();
+    block.push(sentence);
+    blockWords += words;
+    pageWords += words;
+    if (pageWords >= targetWords) pushPage();
+  });
+
+  pushPage();
+  return pages.length ? pages : [paragraphs];
+}
+
+function updateArticleFooter() {
+  const footer = document.getElementById('articleFooter');
+  const meta = document.getElementById('articleFooterMeta');
+  const btn = document.getElementById('finishReadingBtn');
+  if (!currentArticle) {
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'flex';
+  const done = readHistory.some(item => item.title === currentArticle.title);
+  meta.textContent = currentArticle.isReal
+    ? '这是公开原文内容，读完后会保留你的阅读进度。'
+    : '读完后记录一下，系统才知道这篇是太难、刚好还是太简单。';
+  btn.textContent = done ? '已加入记录' : '读完，加入记录';
+  btn.classList.toggle('done', done);
+  btn.disabled = done;
+}
+
+function finishReading() {
+  if (!currentArticle) return;
+  saveToHistory();
+  updateArticleFooter();
+  document.getElementById('inlineFeedback').style.display = 'block';
+  const submitBtn = document.getElementById('feedbackSubmitBtn');
+  submitBtn.textContent = '保存反馈';
+  submitBtn.disabled = false;
+}
+
+function getArticleCacheKey(article) {
+  return [article?.title || '', ...(article?.paragraphs || [])].join('||').slice(0, 6000);
+}
+
+function collectArticleSentences(article) {
+  const seen = new Set();
+  return (article?.paragraphs || [])
+    .flatMap(splitSentences)
+    .map(s => s.trim())
+    .filter(s => {
+      const key = s.toLowerCase();
+      if (!s || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+
+function buildSentenceUnits(paragraphs) {
+  const raw = (paragraphs || []).flatMap(splitSentences).map(s => s.trim()).filter(Boolean);
+  const units = [];
+  let buffer = '';
+  let count = 0;
+  raw.forEach(sentence => {
+    const words = sentence.split(/\s+/).filter(Boolean).length;
+    if (!buffer) {
+      buffer = sentence;
+      count = words;
+      return;
+    }
+    if (count < 16 && count + words <= 28) {
+      buffer += ' ' + sentence;
+      count += words;
+      return;
+    }
+    units.push(buffer);
+    buffer = sentence;
+    count = words;
+  });
+  if (buffer) units.push(buffer);
+  return units;
+}
+
+function getVisibleSentenceUnits(article = currentArticle) {
+  const units = buildSentenceUnits(article?.paragraphs || []);
+  const pageSize = 5;
+  const totalPages = Math.max(1, Math.ceil(units.length / pageSize));
+  if (currentSentencePageIndex >= totalPages) currentSentencePageIndex = 0;
+  const start = currentSentencePageIndex * pageSize;
+  return { units, visible: units.slice(start, start + pageSize), totalPages, start };
+}
+
+async function prefetchSentenceAnalyses(article) {
+  const { visible: sentences } = getVisibleSentenceUnits(article);
+  const key = getArticleCacheKey(article);
+  if (!sentences.length) return;
+  if (article?.isDemo) {
+    const map = { ...(sentenceBatchCache[key] || {}), ...getDemoSentenceAnalysisMap() };
+    // 对没有预设翻译的句子给出占位提示，不再一直显示"正在准备中文说明…"
+    sentences.forEach(s => {
+      const k = s.trim().toLowerCase();
+      if (!map[k]) map[k] = { zh: '（试用模式下仅展示示例句子的翻译，接入 API 后显示完整翻译）' };
+    });
+    sentenceBatchCache[key] = map;
+    sentenceCache = map;
+    refreshBreakdownCards();
+    return;
+  }
+  if (!_safeStorage.getItem('rf_api_key')) return;
+  if (sentenceBatchCache[key] && sentences.every(s => sentenceBatchCache[key][s.trim().toLowerCase()])) {
+    sentenceCache = sentenceBatchCache[key];
+    refreshBreakdownCards();
+    return;
+  }
+
+  const token = ++sentencePrefetchToken;
+  try {
+    const prompt = `You are helping a Chinese learner read English.
+Only translate each sentence into direct useful Chinese.
+No explanation. No extra words.
+
+Return ONLY valid JSON:
+{"items":[
+  {
+    "en":"exact original sentence",
+    "zh":"natural simple Chinese translation"
+  }
+]}
+
+Sentences:
+${sentences.map((s, i) => `${i + 1}. ${s}`).join('\n')}`;
+    const raw = await callAI(prompt, { maxTokens: 700, temperature: 0.1 });
+    const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if (token !== sentencePrefetchToken) return;
+    const map = sentenceBatchCache[key] || {};
+    (data.items || []).forEach(item => {
+      if (!item?.en) return;
+      map[item.en.trim().toLowerCase()] = {
+        zh: item.zh || ''
+      };
+    });
+    sentenceBatchCache[key] = map;
+    sentenceCache = map;
+    refreshBreakdownCards();
+  } catch (err) {
+    console.error('prefetch sentence analyses failed', err);
+  }
+}
+
+function refreshBreakdownCards() {
+  if (currentReadMode === 'breakdown' && currentArticle) renderArticle(currentArticle);
+}
+
+function getSentenceAnalysis(sentence) {
+  return sentenceCache[sentence.trim().toLowerCase()] || null;
+}
+
+function getSentenceDetail(sentence) {
+  return sentenceDetailCache[sentence.trim().toLowerCase()] || null;
+}
+
+function renderSourcePanel() {
+  const panel = document.getElementById('sourcePanel');
+  const pill = document.getElementById('searchPagePill');
+  const pages = currentArticle?.pages || [];
+  if (!currentArticle || (pages.length <= 1 && !currentArticle.sourceUrl)) {
+    panel.className = 'source-panel';
+    panel.innerHTML = '';
+    pill.className = 'search-page-pill';
+    pill.textContent = '';
+    return;
+  }
+  const totalPages = pages.length;
+  pill.className = 'search-page-pill show';
+  pill.textContent = `${currentArticle.isReal ? '原文' : '阅读'}第 ${currentSourcePageIndex + 1} / ${totalPages} 页`;
+  panel.className = 'source-panel show';
+  panel.innerHTML = `
+    <div class="source-panel-top">
+      <div>
+        <div class="source-panel-title">${currentArticle.isReal ? '公开原文 · 分页阅读' : '每日阅读 · 轻量篇幅'}</div>
+        <div class="source-panel-desc">${currentArticle.isReal ? '当前不会缩写内容。需要继续时直接翻页；想核对出处可打开原始来源。' : '当前页面不会一次塞太多内容，尽量保持可读和不压迫。'}</div>
+      </div>
+      <div class="source-panel-actions">
+        <button class="source-nav-btn" onclick="setSourcePage(${currentSourcePageIndex - 1})" ${currentSourcePageIndex === 0 ? 'disabled' : ''}>上一页</button>
+        <button class="source-nav-btn" onclick="setSourcePage(${currentSourcePageIndex + 1})" ${currentSourcePageIndex >= totalPages - 1 ? 'disabled' : ''}>下一页</button>
+        <div class="source-jump">
+          <span>跳到</span>
+          <input id="sourcePageInput" type="number" min="1" max="${totalPages}" value="${currentSourcePageIndex + 1}">
+          <button onclick="jumpToSourcePage()">前往</button>
+        </div>
+        ${currentArticle.sourceUrl ? `<a class="source-link" href="${currentArticle.sourceUrl}" target="_blank">打开来源</a>` : ''}
+      </div>
+    </div>`;
+}
+
+function setSourcePage(index) {
+  if (!currentArticle?.pages) return;
+  if (index < 0 || index >= currentArticle.pages.length) return;
+  currentSourcePageIndex = index;
+  currentSentencePageIndex = 0;
+  currentArticle.paragraphs = currentArticle.pages[index];
+  renderArticle(currentArticle);
+  renderSourcePanel();
+  prefetchSentenceAnalyses(currentArticle);
+}
+
+function jumpToSourcePage() {
+  const input = document.getElementById('sourcePageInput');
+  if (!input) return;
+  const page = Number(input.value);
+  if (!Number.isFinite(page)) return;
+  setSourcePage(page - 1);
+}
+
+// ── Render Article ────────────────────────────────────────────────────────────
+function renderArticle(data) {
+  const body = document.getElementById('articleBody');
+  body.innerHTML = '';
+  if (!data.paragraphs?.length) return;
+
+  if (currentReadMode === 'breakdown') {
+    const sentenceView = getVisibleSentenceUnits(data);
+    const toolbar = document.createElement('div');
+    toolbar.className = 'sentence-toolbar';
+    toolbar.innerHTML = `
+      <div class="sentence-toolbar-meta">句子拆解每页 5 句，默认先显示中文，再展开更详细解析。</div>
+      <div class="sentence-toolbar-actions">
+        <button class="source-nav-btn" onclick="setSentencePage(${currentSentencePageIndex - 1})" ${currentSentencePageIndex === 0 ? 'disabled' : ''}>上一页</button>
+        <button class="source-nav-btn" onclick="setSentencePage(${currentSentencePageIndex + 1})" ${currentSentencePageIndex >= sentenceView.totalPages - 1 ? 'disabled' : ''}>下一页</button>
+        <div class="sentence-page-jump">
+          <span>第 ${currentSentencePageIndex + 1} / ${sentenceView.totalPages} 页</span>
+          <input id="sentencePageInput" type="number" min="1" max="${sentenceView.totalPages}" value="${currentSentencePageIndex + 1}">
+          <button onclick="jumpToSentencePage()">前往</button>
+        </div>
+      </div>`;
+    body.appendChild(toolbar);
+    const list = document.createElement('div');
+    list.className = 'sentence-card-list';
+    sentenceView.visible.forEach((sentence, index) => {
+      list.insertAdjacentHTML('beforeend', renderSentenceCard(sentence, currentSentencePageIndex, index));
+    });
+    body.appendChild(list);
+    bindSentenceTokens(body);
+    bindWordTokens(body);
+    return;
+  }
+
+  data.paragraphs.forEach((para, pi) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'para-wrapper';
+
+    const div = document.createElement('div');
+    div.className = 'article-paragraph';
+    div.innerHTML = renderParagraph(para, pi);
+
+    // Paragraph speak button - floated right end of paragraph
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'para-speak-btn';
+    speakBtn.innerHTML = '🔊';
+    speakBtn.title = '朗读本段';
+    speakBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.speechSynthesis.cancel();
+      speakText(para);
+      speakBtn.innerHTML = '⏸';
+      speakBtn.onclick = (ev) => { ev.stopPropagation(); window.speechSynthesis.cancel(); speakBtn.innerHTML='🔊'; speakBtn.onclick=null; speakBtn.addEventListener('click',(ev2)=>{ev2.stopPropagation();window.speechSynthesis.cancel();speakText(para);speakBtn.innerHTML='⏸';}); };
+    });
+
+    wrapper.appendChild(speakBtn);
+    wrapper.appendChild(div);
+    body.appendChild(wrapper);
+  });
+
+  // Re-bind word tokens
+  bindWordTokens(body);
+}
+
+function renderParagraph(text, pi) {
+  const hardWords = currentArticle?.focus_words || [];
+  if (currentReadMode === 'original') {
+    // Always show hard word highlights in reading mode
+    return tokenizeWords(text, false, hardWords);
+  }
+  return tokenizeWords(text, false, hardWords);
+}
+
+function renderSentenceCard(sentence, pi, si) {
+  const analysis = getSentenceAnalysis(sentence);
+  const detail = getSentenceDetail(sentence);
+  const safeSentence = sentence.replace(/"/g, '&quot;');
+  const safeKey = `${pi}-${si}`;
+  const cacheKey = sentence.trim().toLowerCase();
+  const zhText = analysis?.zh || '正在准备中文说明…';
+  const activeClass = expandedSentenceKeys.has(cacheKey) ? ' active' : '';
+
+  return `
+    <div class="sentence-card${activeClass}" data-key="${safeKey}" data-cache-key="${cacheKey}" data-analysis="structure">
+      <div class="sentence-card-toggle" data-text="${safeSentence}">
+        <div class="sentence-card-top">
+          <div class="sentence-card-en">${tokenizeWords(sentence, false, currentArticle?.focus_words || [], 'hard')}</div>
+          <button class="sentence-speak-btn" type="button" data-speak="${safeSentence}" title="播放句子">发音</button>
+        </div>
+      </div>
+      <div class="sentence-card-zh ${analysis?.zh ? '' : 'loading'}">${zhText}</div>
+      <div class="sentence-detail">
+        <div class="analysis-schemes">
+          <div class="analysis-title">句子结构解析</div>
+          <button class="sentence-action-btn" type="button" data-save="${safeSentence}" data-zh="${zhText.replace(/"/g,'&quot;')}">☆ 收藏</button>
+        </div>
+        <div class="analysis-panel${detail ? '' : ' loading'}">${renderSentenceDetail(detail)}</div>
+      </div>
+    </div>`;
+}
+
+// For breakdown mode: just escape HTML, no word spans
+function escapeForSentence(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function splitSentences(text) {
+  // Split on . ! ? followed by space or end
+  return text.match(/[^.!?]+[.!?]+[\s]*/g)?.map(s => s.trim()).filter(Boolean) || [text];
+}
+
+function tokenizeWords(text, blue, hardWords, mode = 'all') {
+  return text.replace(/([a-zA-Z']+)/g, w => {
+    const escaped = w.replace(/'/g,'&#39;');
+    const cls = blue ? 'wt wt-blue' : 'wt';
+    const isHard = isHighlightedWord(w, hardWords);
+    if (!shouldMakeWordInteractive(w, hardWords, mode)) return w;
+    const style = isHard ? ' style="background:linear-gradient(180deg,#f2ead9 0%, #e9dfc8 100%);box-shadow:inset 0 -1px 0 rgba(164,125,47,.14);border-radius:4px;padding:0 4px;font-weight:600;color:#5f4c2b"' : '';
+    const mark = isHard ? ' title="阅读重点词"' : '';
+    return `<span class="${cls}" data-word="${escaped}"${style}${mark}>${w}</span>`;
+  });
+}
+
+function isHighlightedWord(word, hardWords = []) {
+  const lower = String(word || '').toLowerCase();
+  const base = normalizeWordBase(word);
+  return hardWords.some(h => {
+    const candidate = String(h || '').toLowerCase();
+    return candidate === lower || normalizeWordBase(candidate) === base;
+  });
+}
+
+function shouldMakeWordInteractive(word, hardWords = [], mode = 'all') {
+  if (mode === 'all') return true;
+  if (isHighlightedWord(word, hardWords)) return true;
+  const base = normalizeWordBase(word);
+  if (!base || base.length < 6) return false;
+  if (EASY_HARD_WORDS.has(base) || EXTRA_COMMON_WORDS.has(base) || FOCUS_WORD_STOPWORDS.has(base)) return false;
+  return true;
+}
+
+function renderSentenceDetail(detail) {
+  const core = normalizeAnalysisEntries(detail?.core);
+  const extra = normalizeAnalysisEntries(detail?.extra);
+  const order = normalizeAnalysisEntries(detail?.order);
+  return `
+    <div class="analysis-block">
+      <div class="analysis-block-title">主干</div>
+      <div class="analysis-block-text">${renderAnalysisEntries(core)}</div>
+    </div>
+    <div class="analysis-block">
+      <div class="analysis-block-title">附加信息</div>
+      <div class="analysis-block-text">${renderAnalysisEntries(extra)}</div>
+    </div>
+    <div class="analysis-block">
+      <div class="analysis-block-title">阅读顺序</div>
+      <div class="analysis-block-text">${renderAnalysisEntries(order)}</div>
+    </div>`;
+}
+
+function normalizeAnalysisEntries(value) {
+  const normalized = formatAnalysisEntries(value);
+  return normalized.length ? normalized : [{ en:'', zh:'正在准备中' }];
+}
+
+function formatAnalysisEntries(value) {
+  if (value == null) return [];
+  if (typeof value === 'string') return [{ en:'', zh:cleanAnalysisZh(value) }].filter(item => item.zh);
+  if (Array.isArray(value)) {
+    return value
+      .flatMap(item => formatAnalysisEntries(item))
+      .filter(item => item.zh || item.en);
+  }
+  if (typeof value === 'object') {
+    if ((typeof value.en === 'string' && value.en.trim()) || (typeof value.zh === 'string' && value.zh.trim())) {
+      return [{
+        en: cleanAnalysisEn(value.en || ''),
+        zh: cleanAnalysisZh(value.zh || value.text || value.content || '')
+      }].filter(item => item.zh || item.en);
+    }
+    if (typeof value.part === 'string' || typeof value.note === 'string') {
+      return [{
+        en: cleanAnalysisEn(value.part || value.en || ''),
+        zh: cleanAnalysisZh(value.note || value.zh || '')
+      }].filter(item => item.zh || item.en);
+    }
+    const keys = ['text', 'content', 'answer', 'summary', 'main', 'detail', 'description', 'explanation', 'value'];
+    for (const key of keys) {
+      if (typeof value[key] === 'string' && value[key].trim()) {
+        return [{ en:'', zh:cleanAnalysisZh(value[key]) }];
+      }
+    }
+    return Object.values(value)
+      .flatMap(item => formatAnalysisEntries(item))
+      .filter(item => item.zh || item.en);
+  }
+  return [{ en:'', zh:cleanAnalysisZh(String(value)) }].filter(item => item.zh);
+}
+
+function renderAnalysisEntries(entries) {
+  return entries.map(item => `
+    <div class="analysis-item">
+      ${item.en ? `<div class="analysis-quote">${escapeHtml(item.en)}</div>` : ''}
+      <div class="analysis-note">${escapeHtml(item.zh)}</div>
+    </div>`).join('');
+}
+
+function cleanAnalysisEn(text) {
+  return String(text || '')
+    .replace(/^英文(片段|部分)?[：:]\s*/,'')
+    .replace(/^actual English words from the sentence[：:]\s*/i,'')
+    .replace(/^first English part to read[：:]\s*/i,'')
+    .replace(/^second English part to read[：:]\s*/i,'')
+    .replace(/^["'“”]+|["'“”]+$/g,'')
+    .trim();
+}
+
+function cleanAnalysisZh(text) {
+  return String(text || '')
+    .replace(/^中文[：:]\s*/,'')
+    .replace(/^说明[：:]\s*/,'')
+    .replace(/^中文说明[：:]\s*/,'')
+    .replace(/^这部分是句子的主干，[，,]?/,'')
+    .replace(/^这部分补充说明了[：:]?\s*/,'补充说明了')
+    .replace(/^先看这一部分，[，,]?/,'先看这一部分，')
+    .replace(/^再看这一部分，[，,]?/,'再看这一部分，')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function escapeHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Read Mode ─────────────────────────────────────────────────────────────────
+function setReadMode(mode) {
+  if (mode === 'search') { closeInlinePaste(); openSearch('search'); return; }
+  if (mode === 'paste') { openInlinePaste(); return; }
+  currentReadMode = mode;
+  document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === mode));
+  closeInlinePaste(true);
+  closeBreakdown();
+  // Feedback only visible in original reading mode
+  const fb = document.getElementById('inlineFeedback');
+  if (fb && fb.style.display !== 'none') {
+    // keep visible only in original mode
+    if (mode !== 'original') fb.style.display = 'none';
+  }
+  if (currentArticle) renderArticle(currentArticle);
+  if (mode === 'breakdown') {
+    bindSentenceTokens(document.getElementById('articleBody'));
+    prefetchSentenceAnalyses(currentArticle);
+  }
+}
+
+// ── Word tokens ───────────────────────────────────────────────────────────────
+function bindWordTokens(container) {
+  container.querySelectorAll('.wt').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      openWordPopup(e, el.dataset.word);
+    });
+  });
+}
+
+// ── Sentence tokens ───────────────────────────────────────────────────────────
+function bindSentenceTokens(container) {
+  container.querySelectorAll('.sentence-card').forEach(card => {
+    const toggle = card.querySelector('.sentence-card-toggle');
+    const cacheKey = card.dataset.cacheKey;
+    if (card.classList.contains('active') && cacheKey) {
+      breakdownSentence(toggle.dataset.text, card);
+    }
+    card.querySelectorAll('.sentence-speak-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        speakText(btn.dataset.speak);
+      });
+    });
+    card.querySelectorAll('.sentence-action-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        saveSentenceToList(btn.dataset.save, btn.dataset.zh || '');
+        btn.textContent = '已收藏';
+      });
+    });
+    toggle.addEventListener('click', e => {
+      if (e.target.closest('.sentence-speak-btn')) return;
+      if (e.target.closest('.sentence-action-btn')) return;
+      e.stopPropagation();
+      const isActive = card.classList.contains('active');
+      if (isActive) {
+        card.classList.remove('active');
+        expandedSentenceKeys.delete(cacheKey);
+        return;
+      }
+      card.classList.add('active');
+      expandedSentenceKeys.add(cacheKey);
+      breakdownSentence(toggle.dataset.text, card);
+    });
+  });
+}
+
+function setSentencePage(index) {
+  const totalPages = getVisibleSentenceUnits().totalPages;
+  if (index < 0 || index >= totalPages) return;
+  currentSentencePageIndex = index;
+  if (currentReadMode === 'breakdown' && currentArticle) {
+    renderArticle(currentArticle);
+    prefetchSentenceAnalyses(currentArticle);
+  }
+}
+
+function jumpToSentencePage() {
+  const input = document.getElementById('sentencePageInput');
+  if (!input) return;
+  const page = Number(input.value);
+  if (!Number.isFinite(page)) return;
+  setSentencePage(page - 1);
+}
+
+async function breakdownSentence(sentence, targetEl) {
+  const detail = getSentenceDetail(sentence);
+  if (detail) {
+    applySentenceAnalysisMode(targetEl);
+    return;
+  }
+  if (currentArticle?.isDemo) {
+    const demoDetail = getDemoSentenceDetailMap()[sentence.trim().toLowerCase()];
+    if (demoDetail) {
+      sentenceDetailCache[sentence.trim().toLowerCase()] = demoDetail;
+      applySentenceAnalysisMode(targetEl);
+    } else {
+      // 没有预设数据时，用通用占位数据展示结构，而不是什么都不做
+      const fallback = buildFallbackDetail(sentence);
+      sentenceDetailCache[sentence.trim().toLowerCase()] = fallback;
+      applySentenceAnalysisMode(targetEl);
+    }
+    return;
+  }
+  if (!_safeStorage.getItem('rf_api_key')) return;
+  const panel = targetEl.querySelector('.analysis-panel');
+  if (panel) {
+    panel.classList.add('loading');
+    panel.innerHTML = renderSentenceDetail(null);
+  }
+
+  const prompt = `Analyze this sentence for a Chinese middle-school learner in clear Chinese.
+Sentence: "${sentence}"
+Task:
+1. Find the English core skeleton of the sentence.
+2. Find the English extra information.
+3. Explain the reading order.
+
+Rules:
+- Show the actual English part.
+- Then explain it in short natural Chinese.
+- Do not use grammar jargon unless necessary.
+- Each Chinese explanation should sound like a teacher explaining to a student.
+- Keep each explanation short and practical.
+- If there are two useful English parts, you may return two items.
+- Do not write labels like "中文：" or "英文片段：".
+- Use exact English words copied from the sentence, not rewritten English.
+- Chinese should be direct, like "这一块是主干，表示……" or "这一块补充说明了……".
+
+Respond ONLY with JSON:
+{
+  "core":[
+    {"en":"actual English words from the sentence","zh":"这一块是主干，表示……"}
+  ],
+  "extra":[
+    {"en":"actual English words from the sentence","zh":"这一块补充说明了……"}
+  ],
+  "order":[
+    {"en":"first English part to read","zh":"先看这一部分，先抓住谁在做什么"},
+    {"en":"second English part to read","zh":"再看这一部分，补上时间、原因或方式等信息"}
+  ]
+}`
+;
+
+  try {
+    const raw = await callAI(prompt, { maxTokens: 420, temperature: 0.15 });
+    const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    sentenceDetailCache[sentence.trim().toLowerCase()] = {
+      core: data.core || [],
+      extra: data.extra || [],
+      order: data.order || []
+    };
+    applySentenceAnalysisMode(targetEl);
+  } catch (err) {
+    console.error('sentence breakdown failed', err);
+    if (panel) {
+      panel.classList.remove('loading');
+      panel.innerHTML = `
+        <div class="analysis-block">
+          <div class="analysis-block-title">句子结构解析</div>
+          <div class="analysis-item">
+            <div class="analysis-note">这句暂时还没准备好，稍后再试一次。</div>
+          </div>
+        </div>`;
+    }
+  }
+}
+
+function applySentenceAnalysisMode(card) {
+  const sentence = card.querySelector('.sentence-card-toggle')?.dataset.text || '';
+  const detail = getSentenceDetail(sentence) || {};
+  const panel = card.querySelector('.analysis-panel');
+  panel.classList.remove('loading');
+  panel.innerHTML = renderSentenceDetail(detail);
+}
+
+function closeBreakdown() {
+  document.querySelectorAll('.sentence-card').forEach(card => card.classList.remove('active'));
+  expandedSentenceKeys.clear();
+}
+
+// ── Generate Illustration ────────────────────────────────────────────────────
+function generateIllustration(title, category, topic) {
+  const el = document.getElementById('articleIllustration');
+  if (!el) return;
+  const hardWords = currentArticle?.focus_words || [];
+  
+  // Generate SVG based on category
+  const cats = {
+    'AI与科技':   drawTechSVG,
+    '商业故事':   drawBusinessSVG,
+    '心理学':     drawMindSVG,
+    '生活随笔':   drawLifeSVG,
+    '漫画与故事': drawStoryArrow,
+    '热门书籍':   drawBookSVG,
+    '短篇故事':   drawStoryArrow,
+    '设计与创意': drawDesignSVG,
+  };
+  const drawFn = cats[category] || drawLifeSVG;
+  const svgStr = drawFn(title);
+  el.innerHTML = `
+    <div class="article-illustration-shell">
+      <div class="article-illustration-meta">
+        <div class="article-illustration-kicker">Editorial Visual · ${category || 'Daily Reading'}</div>
+        <div class="article-illustration-note">${tokenizeWords(topic || title || 'Curated for today', false, hardWords, 'all')}</div>
+      </div>
+      <div class="article-illustration-frame">
+        ${svgStr}
+        <div class="article-illustration-caption">
+          <div>
+            <div class="article-illustration-title">${tokenizeWords(title || 'Today\'s Reading', false, hardWords, 'all')}</div>
+            <div class="article-illustration-sub">${tokenizeWords(topic || category || 'Daily Reading', false, hardWords, 'all')}</div>
+          </div>
+          <div class="article-illustration-sub">${currentArticle?.level || 'N+1'} · ${category || 'Reading'}</div>
+        </div>
+      </div>
+    </div>`;
+  el.style.display = 'block';
+  bindWordTokens(el);
+  // Remove top padding from article body when illustration is present
+  const body = document.getElementById('articleBody');
+  if (body) body.style.paddingTop = '18px';
+}
+
+function makeSVG(w, h, inner) {
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:248px;display:block">${inner}</svg>`;
+}
+
+function rnd(a,b){return Math.floor(Math.random()*(b-a))+a;}
+
+function drawTechSVG(title) {
+  const v=rnd(0,3);
+  if(v===0) return makeSVG(700,180,`
+    <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1b2a"/><stop offset="1" stop-color="#1a3a5c"/></linearGradient></defs>
+    <rect width="700" height="180" fill="url(#g1)"/>
+    ${[...Array(18)].map((_,i)=>`<circle cx="${rnd(20,680)}" cy="${rnd(10,170)}" r="${rnd(1,3)}" fill="white" opacity="${(rnd(3,9)/10)}"/>`).join('')}
+    <circle cx="350" cy="90" r="55" fill="none" stroke="#4cc9f0" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <circle cx="350" cy="90" r="35" fill="#1e3a5c"/>
+    <circle cx="350" cy="90" r="12" fill="#4cc9f0" opacity=".8"/>
+    <circle cx="350" cy="90" r="4" fill="white"/>
+    ${[[280,50],[420,50],[260,130],[440,130],[200,90],[500,90]].map(([x,y])=>`<line x1="350" y1="90" x2="${x}" y2="${y}" stroke="#4cc9f0" stroke-width="1" opacity=".4" stroke-dasharray="3,3"/><circle cx="${x}" cy="${y}" r="5" fill="#4cc9f0" opacity=".7"/>`).join('')}
+    <text x="350" y="168" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#4cc9f0" opacity=".6">${title.slice(0,50)}</text>`);
+  if(v===1) return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#0a0a12"/>
+    ${[...Array(6)].map((_,i)=>`<rect x="${100+i*90}" y="0" width="1" height="180" fill="#1e3a5c" opacity=".5"/>`).join('')}
+    ${[...Array(4)].map((_,i)=>`<rect x="0" y="${30+i*45}" width="700" height="1" fill="#1e3a5c" opacity=".5"/>`).join('')}
+    <rect x="60" y="40" width="160" height="100" rx="8" fill="#0d1f35" stroke="#3a7ab8" stroke-width="1.5"/>
+    <rect x="70" y="52" width="140" height="16" rx="3" fill="#3a7ab8" opacity=".2"/>
+    <rect x="70" y="74" width="100" height="8" rx="2" fill="#2e7d5a" opacity=".6"/>
+    <rect x="70" y="88" width="120" height="8" rx="2" fill="#2e7d5a" opacity=".4"/>
+    <rect x="70" y="102" width="80" height="8" rx="2" fill="#3a7ab8" opacity=".4"/>
+    <rect x="70" y="116" width="110" height="8" rx="2" fill="#6b3fa0" opacity=".4"/>
+    <text x="75" y="65" font-family="DM Mono,monospace" font-size="10" fill="#4cc9f0">$ run model.py</text>
+    <rect x="270" y="50" width="100" height="80" rx="6" fill="#0d2d0d" stroke="#2e7d5a" stroke-width="1.5"/>
+    ${[...Array(5)].map((_,i)=>`<rect x="280" y="${62+i*12}" width="${rnd(40,85)}" height="7" rx="2" fill="#2e7d5a" opacity="${0.3+i*0.1}"/>`).join('')}
+    <rect x="420" y="35" width="210" height="110" rx="8" fill="#12121f" stroke="#6b3fa0" stroke-width="1.5"/>
+    ${[...Array(4)].map((_,i)=>`<rect x="430" y="${48+i*22}" width="${rnd(80,180)}" height="10" rx="3" fill="#6b3fa0" opacity="${0.2+i*0.08}"/>`).join('')}
+    <circle cx="480" cy="130" r="12" fill="#3a7ab8" opacity=".8"/>
+    <text x="480" y="134" text-anchor="middle" font-size="11" fill="white">AI</text>`);
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#f0f8ff"/>
+    <circle cx="600" cy="-20" r="120" fill="#dbeafe" opacity=".5"/>
+    <rect x="50" y="50" width="180" height="90" rx="10" fill="white" stroke="#bfdbfe" stroke-width="2" filter="drop-shadow(0 4px 8px rgba(59,130,246,.1))"/>
+    <rect x="50" y="50" width="180" height="28" rx="10" fill="#3b82f6"/>
+    <rect x="50" y="78" width="180" height="62" rx="0 0 10 10" fill="white"/>
+    <circle cx="64" cy="64" r="5" fill="white" opacity=".7"/>
+    <circle cx="80" cy="64" r="5" fill="white" opacity=".5"/>
+    <rect x="62" y="88" width="130" height="8" rx="3" fill="#bfdbfe"/>
+    <rect x="62" y="104" width="100" height="8" rx="3" fill="#dbeafe"/>
+    <rect x="62" y="120" width="115" height="8" rx="3" fill="#eff6ff"/>
+    <text x="270" y="78" font-size="32" fill="#3b82f6">🤖</text>
+    <rect x="310" y="55" width="160" height="40" rx="20" fill="white" stroke="#bfdbfe" stroke-width="1.5"/>
+    <text x="325" y="80" font-size="12" fill="#3d5244" font-family="DM Sans,sans-serif">${title.slice(0,22)}</text>
+    <rect x="310" y="108" width="130" height="30" rx="15" fill="#3b82f6"/>
+    <text x="327" y="127" font-size="11" fill="white" font-family="DM Sans,sans-serif">Generate ✨</text>`);
+}
+
+function drawBusinessSVG(title) {
+  const v=rnd(0,2);
+  if(v===0) return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#fffbf0"/>
+    <circle cx="650" cy="150" r="100" fill="#fef3c7" opacity=".5"/>
+    ${[[80,140,50],[140,110,70],[200,80,90],[260,55,100],[320,70,85],[380,45,110]].map(([x,top,h],i)=>`
+      <rect x="${x}" y="${top}" width="40" height="${h}" rx="4 4 0 0" fill="${['#f59e0b','#10b981','#3b82f6','#8b5cf6','#ef4444','#06b6d4'][i]}" opacity=".85"/>
+    `).join('')}
+    <polyline points="100,140 160,110 220,80 280,55 340,70 400,45" fill="none" stroke="#1d5c41" stroke-width="2.5" stroke-linecap="round"/>
+    ${[[100,140],[160,110],[220,80],[280,55],[340,70],[400,45]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="#1d5c41"/>`).join('')}
+    <text x="410" y="42" font-size="13" fill="#1d5c41" font-weight="600" font-family="DM Sans,sans-serif">↗ +42%</text>
+    <rect x="460" y="40" width="190" height="100" rx="10" fill="white" stroke="#e5e7eb" stroke-width="1.5" filter="drop-shadow(0 2px 8px rgba(0,0,0,.06))"/>
+    <text x="480" y="65" font-size="13" fill="#1c2b20" font-family="Lora,serif" font-weight="500">${title.slice(0,20)}</text>
+    <rect x="480" y="75" width="80" height="3" rx="2" fill="#f59e0b" opacity=".6"/>
+    <rect x="480" y="86" width="150" height="7" rx="2" fill="#e5e7eb"/>
+    <rect x="480" y="99" width="120" height="7" rx="2" fill="#e5e7eb"/>
+    <rect x="480" y="112" width="135" height="7" rx="2" fill="#e5e7eb"/>
+    <rect x="480" y="125" width="60" height="22" rx="6" fill="#f59e0b"/>
+    <text x="495" y="140" font-size="11" fill="white" font-family="DM Sans,sans-serif" font-weight="500">Start →</text>`);
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#f8fafc"/>
+    <text x="60" y="100" font-size="80" opacity=".08">💼</text>
+    <circle cx="140" cy="90" r="50" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="140" y="98" text-anchor="middle" font-size="28">💡</text>
+    <line x1="195" y1="90" x2="230" y2="90" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="235" y="55" width="120" height="70" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="235" y="55" width="120" height="24" rx="8 8 0 0" fill="#0f172a"/>
+    <text x="254" y="71" font-size="10" fill="#94a3b8" font-family="DM Mono,monospace">plan.md</text>
+    <rect x="248" y="87" width="85" height="6" rx="2" fill="#e2e8f0"/>
+    <rect x="248" y="99" width="65" height="6" rx="2" fill="#e2e8f0"/>
+    <rect x="248" y="111" width="75" height="6" rx="2" fill="#e2e8f0"/>
+    <line x1="360" y1="90" x2="395" y2="90" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <circle cx="445" cy="90" r="50" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="445" y="98" text-anchor="middle" font-size="28">🚀</text>
+    <text x="350" y="168" text-anchor="middle" font-size="11" fill="#64748b" font-family="DM Sans,sans-serif">${title.slice(0,50)}</text>`);
+}
+
+function drawMindSVG(title) {
+  return makeSVG(700,180,`
+    <defs><radialGradient id="mg"><stop offset="0" stop-color="#f5f0ff"/><stop offset="1" stop-color="#ede9fe"/></radialGradient></defs>
+    <rect width="700" height="180" fill="url(#mg)"/>
+    <text x="60" y="130" font-size="100" opacity=".06">🧠</text>
+    <circle cx="350" cy="88" r="55" fill="white" stroke="#a78bfa" stroke-width="2" filter="drop-shadow(0 4px 16px rgba(139,92,246,.15))"/>
+    <text x="350" y="100" text-anchor="middle" font-size="32">🧠</text>
+    ${[['memory',220,42,'#7c3aed'],['emotion',480,42,'#db2777'],['focus',165,110,'#059669'],['habit',535,110,'#ea580c'],['sleep',350,158,'#0284c7']].map(([lbl,x,y,col])=>`
+      <circle cx="${x}" cy="${y}" r="28" fill="white" stroke="${col}" stroke-width="1.5"/>
+      <text x="${x}" y="${y+4}" text-anchor="middle" font-size="10" fill="${col}" font-family="DM Sans,sans-serif" font-weight="500">${lbl}</text>
+      <line x1="${x}" y1="${y}" x2="350" y2="88" stroke="${col}" stroke-width="1" stroke-dasharray="4,3" opacity=".5"/>
+    `).join('')}
+    <text x="350" y="176" text-anchor="middle" font-size="11" fill="#6b3fa0" opacity=".6" font-family="DM Sans,sans-serif">${title.slice(0,50)}</text>`);
+}
+
+function drawLifeSVG(title) {
+  const v=rnd(0,3);
+  if(v===0) return makeSVG(700,180,`
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfdbfe"/><stop offset="1" stop-color="#dbeafe"/></linearGradient></defs>
+    <rect width="700" height="180" fill="url(#sky)"/>
+    <circle cx="580" cy="40" r="30" fill="#fde68a"/>
+    ${[...Array(8)].map((_,i)=>`<line x1="580" y1="40" x2="${580+Math.cos(i*Math.PI/4)*48}" y2="${40+Math.sin(i*Math.PI/4)*48}" stroke="#fde68a" stroke-width="2" opacity=".6"/>`).join('')}
+    <rect x="0" y="130" width="700" height="50" fill="#86efac"/>
+    <rect x="60" y="90" width="80" height="40" rx="4" fill="white" stroke="#a3e635" stroke-width="1.5"/>
+    <rect x="60" y="90" width="80" height="16" rx="4 4 0 0" fill="#a3e635"/>
+    <rect x="80" y="112" width="10" height="18" rx="2" fill="#713f12"/>
+    <rect x="80" y="112" width="10" height="18" rx="2" fill="#713f12"/>
+    <rect x="200" y="100" width="50" height="30" rx="3" fill="#fcd34d"/>
+    <rect x="213" y="85" width="24" height="16" rx="2" fill="#fcd34d" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="220" y="85" width="10" height="45" rx="0 0 2 2" fill="#92400e"/>
+    <path d="M280 130 Q310 100 340 130" fill="#4ade80" opacity=".8"/>
+    <path d="M300 130 Q320 95 345 130" fill="#86efac"/>
+    <path d="M350 130 Q370 110 390 130" fill="#4ade80" opacity=".6"/>
+    <text x="450" y="88" font-size="32">☕</text>
+    <rect x="510" y="70" width="130" height="60" rx="8" fill="white" opacity=".9"/>
+    <rect x="522" y="82" width="106" height="7" rx="3" fill="#bfdbfe"/>
+    <rect x="522" y="95" width="80" height="7" rx="3" fill="#dbeafe"/>
+    <rect x="522" y="108" width="95" height="7" rx="3" fill="#eff6ff"/>`);
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#f0fdf4"/>
+    <circle cx="100" cy="90" r="58" fill="#bbf7d0" opacity=".5"/>
+    <text x="70" y="108" font-size="56">🌿</text>
+    <text x="190" y="75" font-size="28">🎵</text>
+    <text x="260" y="108" font-size="36">📚</text>
+    <text x="350" y="78" font-size="28">🛋️</text>
+    <text x="430" y="108" font-size="36">☕</text>
+    <text x="510" y="80" font-size="28">🌙</text>
+    <text x="570" y="108" font-size="36">✨</text>
+    <rect x="40" y="130" width="620" height="32" rx="6" fill="white" opacity=".7"/>
+    <text x="350" y="151" text-anchor="middle" font-family="Lora,serif" font-size="13" fill="#1c2b20" opacity=".7">${title.slice(0,55)}</text>`);
+}
+
+function drawStoryArrow(title) {
+  const v=rnd(0,2);
+  if(v===0) return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#0d0d1a"/>
+    ${[...Array(25)].map((_,i)=>`<circle cx="${rnd(0,700)}" cy="${rnd(0,180)}" r="${rnd(1,2)}" fill="white" opacity="${rnd(3,8)/10}"/>`).join('')}
+    <rect x="40" y="25" width="100" height="130" rx="6" fill="#1a1a2e" stroke="#e94560" stroke-width="2"/>
+    <rect x="48" y="35" width="84" height="60" rx="3" fill="#0f0f1a"/>
+    <circle cx="90" cy="65" r="20" fill="none" stroke="#e94560" stroke-width="2"/>
+    <circle cx="90" cy="65" r="8" fill="#e94560" opacity=".5"/>
+    <rect x="52" y="104" width="72" height="6" rx="2" fill="#e94560" opacity=".5"/>
+    <rect x="52" y="116" width="55" height="5" rx="2" fill="white" opacity=".2"/>
+    <rect x="52" y="128" width="63" height="5" rx="2" fill="white" opacity=".15"/>
+    <text x="90" y="148" text-anchor="middle" font-size="10" fill="#e94560" font-family="DM Mono,monospace">VOL.1</text>
+    <path d="M155 90 L175 75 L175 83 L205 83 L205 75 L225 90 L205 105 L205 97 L175 97 L175 105 Z" fill="#f5c842" opacity=".9"/>
+    <rect x="235" y="25" width="100" height="130" rx="6" fill="#1a1a2e" stroke="#f5c842" stroke-width="2"/>
+    <rect x="243" y="35" width="84" height="60" rx="3" fill="#0f0f1a"/>
+    <polygon points="285,45 295,65 285,85 305,65" fill="#f5c842" opacity=".8"/>
+    <rect x="247" y="104" width="72" height="6" rx="2" fill="#f5c842" opacity=".5"/>
+    <rect x="247" y="116" width="50" height="5" rx="2" fill="white" opacity=".2"/>
+    <rect x="247" y="128" width="60" height="5" rx="2" fill="white" opacity=".15"/>
+    <text x="285" y="148" text-anchor="middle" font-size="10" fill="#f5c842" font-family="DM Mono,monospace">VOL.2</text>
+    <path d="M348 90 L368 75 L368 83 L398 83 L398 75 L418 90 L398 105 L398 97 L368 97 L368 105 Z" fill="#4cc9f0" opacity=".9"/>
+    <rect x="428" y="25" width="100" height="130" rx="6" fill="#1a1a2e" stroke="#4cc9f0" stroke-width="2"/>
+    <rect x="436" y="35" width="84" height="60" rx="3" fill="#0f0f1a"/>
+    <rect x="448" y="48" width="60" height="35" rx="4" fill="#4cc9f0" opacity=".15" stroke="#4cc9f0" stroke-width="1"/>
+    <text x="478" y="70" text-anchor="middle" font-size="20">⚡</text>
+    <rect x="440" y="104" width="72" height="6" rx="2" fill="#4cc9f0" opacity=".5"/>
+    <rect x="440" y="116" width="55" height="5" rx="2" fill="white" opacity=".2"/>
+    <text x="478" y="148" text-anchor="middle" font-size="10" fill="#4cc9f0" font-family="DM Mono,monospace">VOL.3</text>
+    <text x="570" y="65" font-size="36">🎌</text>
+    <text x="560" y="105" font-size="13" fill="white" opacity=".6" font-family="DM Sans,sans-serif">${title.slice(0,14)}</text>
+    <text x="560" y="122" font-size="11" fill="white" opacity=".4" font-family="DM Sans,sans-serif">${title.slice(14,28)}</text>`);
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#1a0a2e"/>
+    <circle cx="350" cy="90" r="120" fill="#2d1457" opacity=".4"/>
+    ${[...Array(20)].map((_,i)=>`<circle cx="${rnd(20,680)}" cy="${rnd(10,170)}" r="${rnd(1,2)}" fill="${['#e94560','#f5c842','#4cc9f0','white'][rnd(0,4)]}" opacity="${rnd(4,9)/10}"/>`).join('')}
+    <text x="350" y="120" text-anchor="middle" font-size="72" opacity=".9">📖</text>
+    <text x="350" y="160" text-anchor="middle" font-size="13" fill="#f5c842" opacity=".7" font-family="Lora,serif">${title.slice(0,40)}</text>`);
+}
+
+function drawBookSVG(title) {
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#faf7f2"/>
+    <circle cx="650" cy="160" r="100" fill="#fde68a" opacity=".25"/>
+    <rect x="40" y="30" width="75" height="120" rx="5" fill="#dc2626"/>
+    <rect x="40" y="30" width="10" height="120" fill="#b91c1c"/>
+    <rect x="50" y="38" width="59" height="104" rx="2" fill="#fef2f2"/>
+    <rect x="56" y="50" width="42" height="5" rx="2" fill="#dc2626" opacity=".5"/>
+    <rect x="56" y="62" width="33" height="4" rx="2" fill="#374151" opacity=".3"/>
+    <rect x="56" y="72" width="38" height="4" rx="2" fill="#374151" opacity=".25"/>
+    <rect x="56" y="82" width="28" height="4" rx="2" fill="#374151" opacity=".2"/>
+    <rect x="130" y="38" width="75" height="112" rx="5" fill="#2563eb"/>
+    <rect x="130" y="38" width="10" height="112" fill="#1d4ed8"/>
+    <rect x="140" y="45" width="59" height="98" rx="2" fill="#eff6ff"/>
+    <rect x="146" y="57" width="42" height="5" rx="2" fill="#2563eb" opacity=".5"/>
+    <rect x="146" y="69" width="30" height="4" rx="2" fill="#374151" opacity=".3"/>
+    <rect x="146" y="79" width="36" height="4" rx="2" fill="#374151" opacity=".25"/>
+    <rect x="220" y="45" width="75" height="105" rx="5" fill="#059669"/>
+    <rect x="220" y="45" width="10" height="105" fill="#047857"/>
+    <rect x="230" y="52" width="59" height="91" rx="2" fill="#f0fdf4"/>
+    <rect x="236" y="62" width="42" height="5" rx="2" fill="#059669" opacity=".5"/>
+    <rect x="236" y="74" width="28" height="4" rx="2" fill="#374151" opacity=".3"/>
+    <rect x="340" y="28" width="3" height="124" fill="#d1d5db"/>
+    <rect x="360" y="40" width="280" height="110" rx="10" fill="white" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/>
+    <rect x="376" y="56" width="180" height="8" rx="3" fill="#374151" opacity=".7"/>
+    <rect x="376" y="70" width="220" height="5" rx="2" fill="#9ca3af" opacity=".5"/>
+    <rect x="376" y="81" width="200" height="5" rx="2" fill="#9ca3af" opacity=".4"/>
+    <rect x="376" y="92" width="210" height="5" rx="2" fill="#9ca3af" opacity=".35"/>
+    <rect x="376" y="103" width="170" height="5" rx="2" fill="#9ca3af" opacity=".3"/>
+    <rect x="376" y="119" width="80" height="22" rx="6" fill="#f59e0b"/>
+    <text x="393" y="134" font-size="11" fill="white" font-family="DM Sans,sans-serif" font-weight="500">Read now →</text>
+    <text x="370" y="52" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">📚 ${title.slice(0,30)}</text>`);
+}
+
+function drawDesignSVG(title) {
+  const v=rnd(0,2);
+  if(v===0) return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#fafafa"/>
+    <rect x="30" y="20" width="200" height="140" rx="10" fill="white" stroke="#e5e7eb" stroke-width="1.5" filter="drop-shadow(0 2px 8px rgba(0,0,0,.06))"/>
+    <rect x="30" y="20" width="200" height="40" rx="10 10 0 0" fill="#18181b"/>
+    <circle cx="50" cy="40" r="6" fill="#ef4444"/>
+    <circle cx="68" cy="40" r="6" fill="#f59e0b"/>
+    <circle cx="86" cy="40" r="6" fill="#22c55e"/>
+    <rect x="45" y="72" width="170" height="12" rx="4" fill="#f3f4f6"/>
+    <rect x="45" y="92" width="130" height="12" rx="4" fill="#f3f4f6"/>
+    <rect x="45" y="112" width="150" height="12" rx="4" fill="#f3f4f6"/>
+    <rect x="45" y="132" width="70" height="22" rx="6" fill="#3b82f6"/>
+    <text x="54" y="147" font-size="11" fill="white" font-family="DM Sans,sans-serif">Button</text>
+    <rect x="260" y="30" width="160" height="90" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1" filter="drop-shadow(0 2px 6px rgba(0,0,0,.05))"/>
+    <circle cx="340" cy="65" r="22" fill="#818cf8"/>
+    <text x="340" y="72" text-anchor="middle" font-size="18" fill="white">✦</text>
+    <rect x="275" y="98" width="130" height="8" rx="3" fill="#e5e7eb"/>
+    <rect x="290" y="112" width="100" height="6" rx="2" fill="#f3f4f6"/>
+    <rect x="260" y="135" width="160" height="30" rx="8" fill="#f8fafc"/>
+    <circle cx="290" cy="150" r="10" fill="#818cf8" opacity=".3"/>
+    <circle cx="315" cy="150" r="10" fill="#22d3ee" opacity=".3"/>
+    <circle cx="340" cy="150" r="10" fill="#f59e0b" opacity=".3"/>
+    <text x="460" y="55" font-size="40">🎨</text>
+    <rect x="450" y="80" width="180" height="70" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="462" y="92" width="60" height="24" rx="6" fill="#818cf8"/>
+    <rect x="530" y="92" width="60" height="24" rx="6" fill="#f3f4f6"/>
+    <rect x="462" y="122" width="155" height="8" rx="3" fill="#f3f4f6"/>
+    <text x="468" y="108" font-size="11" fill="white" font-family="DM Sans,sans-serif">Primary</text>
+    <text x="536" y="108" font-size="11" fill="#6b7280" font-family="DM Sans,sans-serif">Cancel</text>`);
+  return makeSVG(700,180,`
+    <rect width="700" height="180" fill="#0f0f0f"/>
+    <circle cx="200" cy="90" r="55" fill="#ef4444" opacity=".15"/>
+    <circle cx="260" cy="90" r="55" fill="#3b82f6" opacity=".15"/>
+    <circle cx="230" cy="50" r="55" fill="#22c55e" opacity=".15"/>
+    <circle cx="200" cy="90" r="55" fill="none" stroke="#ef4444" stroke-width="1.5" opacity=".6"/>
+    <circle cx="260" cy="90" r="55" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity=".6"/>
+    <circle cx="230" cy="50" r="55" fill="none" stroke="#22c55e" stroke-width="1.5" opacity=".6"/>
+    <text x="175" y="108" font-size="11" fill="#ef4444" font-family="DM Mono,monospace">Red</text>
+    <text x="248" y="108" font-size="11" fill="#3b82f6" font-family="DM Mono,monospace">Blue</text>
+    <text x="218" y="32" font-size="11" fill="#22c55e" font-family="DM Mono,monospace">Green</text>
+    <text x="230" y="80" text-anchor="middle" font-size="11" fill="white" opacity=".7" font-family="DM Mono,monospace">mix</text>
+    <rect x="380" y="30" width="270" height="120" rx="8" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+    <rect x="390" y="40" width="250" height="20" rx="4" fill="#111"/>
+    <text x="398" y="54" font-family="DM Mono,monospace" font-size="10" fill="#22c55e">// design system</text>
+    ${[['primary','#818cf8',65],['accent','#22d3ee',80],['neutral','#6b7280',95],['success','#22c55e',110],['warning','#f59e0b',125]].map(([name,col,y])=>`
+      <rect x="398" y="${y}" width="14" height="10" rx="2" fill="${col}"/>
+      <text x="420" y="${y+8}" font-size="9" fill="#9ca3af" font-family="DM Mono,monospace">${name}: ${col}</text>
+    `).join('')}
+    <text x="515" y="160" text-anchor="middle" font-size="11" fill="#4b5563" font-family="DM Sans,sans-serif">${title.slice(0,35)}</text>`);
+}
+
+
+// ── Generate Article → call illustration after render ──
+
+
+// ── Word popup ────────────────────────────────────────────────────────────────
+async function openWordPopup(e, word) {
+  popupWord = word;
+  popupAnchorEl = e.target;
+  const popup = document.getElementById('wordPopup');
+  popup.style.display = 'block';
+  popup.style.visibility = 'hidden';
+  popup.style.top = '0px'; popup.style.left = '0px';
+  document.getElementById('wpWord').textContent = word;
+  document.getElementById('wpPron').textContent = '';
+  document.getElementById('wpDef').textContent  = '查询中…';
+  document.getElementById('wpContextWrap').style.display = 'none';
+  document.getElementById('wpMemoryWrap').style.display = 'none';
+
+  requestAnimationFrame(() => positionWordPopup());
+
+  const key = word.toLowerCase();
+  if (wordCache[key]) { applyWordData(wordCache[key]); return; }
+  if (currentArticle?.isDemo && !_safeStorage.getItem('rf_api_key')) {
+    const data = getDemoWordData(word);
+    wordCache[key] = data;
+    applyWordData(data);
+    return;
+  }
+  if (!_safeStorage.getItem('rf_api_key')) {
+    document.getElementById('wpDef').textContent = '请先完成服务设置';
+    return;
+  }
+
+  try {
+    const raw = await callAI(`查询英文单词 "${word}"，面向中文学习者返回轻量解释。
+Context topic: "${currentArticle?.topic||'general'}"
+Respond ONLY with JSON:
+{
+  "pronunciation":"<国际音标>",
+  "definitions":[
+    {"pos":"<词性缩写，如 n./v./adj.>","zh":"<中文释义>","en":"<简短英文释义>"}
+  ],
+  "context_zh":"<放在当前阅读语境里时，更贴切的中文意思>",
+  "memory_tip":{
+    "method":"<谐音联想法 / 词根拆解法 / 场景故事法 / 对比记忆法 之一>",
+    "content":"<具体、简短、好记的记忆内容>",
+    "one_line":"<一句话记忆提示>"
+  }
+}`, { maxTokens: 420, temperature: 0.2 })
+    const data = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    wordCache[key] = data;
+    applyWordData(data);
+  } catch {
+    document.getElementById('wpDef').textContent = '暂时没有查到';
+  }
+}
+
+function positionWordPopup() {
+  const popup = document.getElementById('wordPopup');
+  if (!popupAnchorEl || popup.style.display === 'none') return;
+  const rect = popupAnchorEl.getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) {
+    popup.style.display = 'none';
+    popupAnchorEl = null;
+    return;
+  }
+  // Use fixed positioning (works in iframes and avoids scroll offset issues)
+  popup.style.position = 'fixed';
+  const pw = popup.offsetWidth || 300;
+  const ph = popup.offsetHeight || 200;
+  let top  = rect.bottom + 10;
+  let left = rect.left;
+  if (left + pw > window.innerWidth - 12) left = window.innerWidth - pw - 12;
+  if (top + ph > window.innerHeight - 12) top  = rect.top - ph - 10;
+  popup.style.top  = Math.max(8, top)  + 'px';
+  popup.style.left = Math.max(8, left) + 'px';
+  popup.style.visibility = 'visible';
+}
+
+function applyWordData(data) {
+  document.getElementById('wpPron').textContent = data.pronunciation || '';
+  const defEl = document.getElementById('wpDef');
+  defEl.innerHTML = '';
+  const defs = Array.isArray(data.definitions) ? data.definitions : [];
+  if (defs.length) {
+    defs.slice(0, 2).forEach((item, index) => {
+      if (!item?.zh && !item?.en) return;
+      const zh = document.createElement('div');
+      zh.className = index === 0 ? 'wp-def-main' : '';
+      zh.textContent = [item.pos, item.zh].filter(Boolean).join(' ');
+      defEl.appendChild(zh);
+      if (item.en) {
+        const en = document.createElement('div');
+        en.className = 'wp-example-zh';
+        en.style.marginTop = '2px';
+        en.textContent = item.en;
+        defEl.appendChild(en);
+      }
+    });
+  } else {
+    const mainZh = String(data.zh || '').replace(/^这个单词最简单的中文意思[是：:]?\s*/,'').trim();
+    if (mainZh) {
+      const zh = document.createElement('div');
+      zh.className = 'wp-def-main';
+      zh.textContent = mainZh;
+      defEl.appendChild(zh);
+    }
+  }
+
+  const contextWrap = document.getElementById('wpContextWrap');
+  const contextEl = document.getElementById('wpContext');
+  const contextZh = String(data.context_zh || '').trim();
+  contextWrap.style.display = contextZh ? 'block' : 'none';
+  contextEl.textContent = contextZh;
+
+  const memoryWrap = document.getElementById('wpMemoryWrap');
+  const memory = data.memory_tip || null;
+  const hasMemory = memory && (memory.content || memory.one_line || memory.method);
+  memoryWrap.style.display = hasMemory ? 'block' : 'none';
+  document.getElementById('wpMemoryMethod').textContent = memory?.method || '记忆技巧';
+  document.getElementById('wpMemoryText').textContent = memory?.content || '';
+  document.getElementById('wpMemoryOneLine').textContent = memory?.one_line || '';
+}
+
+function saveCurrentWord() {
+  const word = document.getElementById('wpWord').textContent;
+  if (!word) return;
+  const existing = vocab.find(v => v.word.toLowerCase() === word.toLowerCase());
+  if (existing) {
+    existing.lookups = (existing.lookups||1) + 1;
+    saveData(); renderVocab();
+    showToast(`已在单词本，查询次数 +1`); return;
+  }
+  vocab.unshift({
+    id:Date.now(), word,
+    pronunciation: document.getElementById('wpPron').textContent,
+    definition:    document.getElementById('wpDef').textContent,
+    date: new Date().toLocaleDateString('zh-CN'), lookups:1,
+    articleTitle: currentArticle?.title || '',
+  });
+  saveData(); renderVocab(); switchTab('vocab');
+  document.getElementById('wordPopup').style.display = 'none';
+  showToast(`"${word}" 已加入单词本`);
+}
+
+// ── Feedback ──────────────────────────────────────────────────────────────────
+function selectFb(type, btn) {
+  document.querySelectorAll(`#fb${type.charAt(0).toUpperCase()+type.slice(1)} .fb-opt`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  fbState[type] = btn.dataset.v;
+  // Map fbDifficulty -> difficulty etc
+  if (type === 'difficulty') fbState.difficulty = btn.dataset.v;
+  if (type === 'interest')   fbState.interest   = btn.dataset.v;
+  if (type === 'stuck')      fbState.stuck      = btn.dataset.v;
+}
+function resetFeedback() {
+  fbState = { difficulty:'', interest:'', stuck:'' };
+  document.querySelectorAll('.fb-opt').forEach(b => b.classList.remove('selected'));
+}
+function submitFeedback() {
+  if (!fbState.difficulty && !fbState.interest && !fbState.stuck) {
+    showToast('请至少选一项反馈'); return;
+  }
+  // Attach feedback to last history item
+  if (readHistory.length) readHistory[0].feedback = { ...fbState };
+  saveData();
+  const btn=document.getElementById('feedbackSubmitBtn');if(btn){btn.textContent='反馈已保存';
+  btn.disabled=true;}
+  showToast('反馈已保存，将影响下篇文章推荐');
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+function saveToHistory() {
+  if (!currentArticle) return;
+  // Avoid duplicate
+  if (readHistory.length && readHistory[0].title === currentArticle.title) return;
+  readHistory.unshift({
+    id: Date.now(),
+    title: currentArticle.title,
+    topic: currentArticle.topic,
+    level: currentArticle.level,
+    date:  new Date().toLocaleDateString('zh-CN'),
+    feedback: null,
+  });
+  if (readHistory.length > 30) readHistory = readHistory.slice(0, 30);
+  saveData();
+  renderHistory();
+  updateStats();
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.sidebar-tab').forEach((t,i) => t.classList.toggle('active', ['vocab','sentences','history'][i]===tab));
+  ['vocab','sentences','history'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('active', t===tab);
+  });
+}
+
+function renderVocab() {
+  const list = document.getElementById('vocabList');
+  if (!vocab.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📖</div><div class="empty-text">点击文章中的单词<br>即可查询并收藏</div></div>`;
+    return;
+  }
+  list.innerHTML = vocab.map(v => `
+    <div class="vocab-card">
+      <button class="del-btn" onclick="deleteVocab(${v.id},event)">✕</button>
+      <div class="vc-word">${v.word}</div>
+      ${v.pronunciation?`<div class="vc-pron">${v.pronunciation}</div>`:''}
+      <div class="vc-def">${v.definition||''}</div>
+      <div class="vc-meta">
+        <span class="vc-date">${v.date}${v.articleTitle?` · ${v.articleTitle.slice(0,12)}…`:''}</span>
+        <button class="vc-speak" data-word="${v.word}">发音</button>
+      </div>
+    </div>`).join('');
+  list.querySelectorAll('.vc-speak').forEach(btn => btn.addEventListener('click', () => speakText(btn.dataset.word)));
+}
+
+function deleteVocab(id, e) { e.stopPropagation(); vocab=vocab.filter(v=>v.id!==id); saveData(); renderVocab(); }
+function clearVocab() { if(!vocab.length)return; if(confirm(`确定清空全部 ${vocab.length} 个单词？`)){vocab=[];saveData();renderVocab();showToast('已清空');} }
+
+function saveSentenceToList(text, zh) {
+  if (savedSentences.find(s => s.text === text)) { showToast('已经收藏过这句了'); return; }
+  savedSentences.unshift({
+    id:Date.now(), text, zh: zh||'',
+    date: new Date().toLocaleDateString('zh-CN'),
+    articleTitle: currentArticle?.title || '',
+  });
+  saveData(); renderSentences(); switchTab('sentences');
+  showToast('已收藏到句子列表');
+}
+
+function renderSentences() {
+  const list = document.getElementById('sentencesList');
+  if (!savedSentences.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">✨</div><div class="empty-text">拆解句子后可以<br>一键收藏好句</div></div>`;
+    return;
+  }
+  list.innerHTML = savedSentences.map(s => `
+    <div class="saved-sent-card">
+      <button class="del-btn" onclick="deleteSentence(${s.id},event)">✕</button>
+      <div class="ss-en">${s.text}</div>
+      ${s.zh?`<div class="ss-zh">${s.zh}</div>`:''}
+      <div class="ss-meta">
+        <span>${s.date}</span>
+        <button class="ss-speak" data-text="${s.text.replace(/"/g,'&quot;')}">朗读</button>
+      </div>
+    </div>`).join('');
+  list.querySelectorAll('.ss-speak').forEach(btn => btn.addEventListener('click', () => speakText(btn.dataset.text)));
+}
+
+function deleteSentence(id, e) { e.stopPropagation(); savedSentences=savedSentences.filter(s=>s.id!==id); saveData(); renderSentences(); }
+function clearSentences() { if(!savedSentences.length)return; if(confirm('确定清空全部收藏句子？')){savedSentences=[];saveData();renderSentences();showToast('已清空');} }
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  if (!readHistory.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-text">完成阅读后<br>记录会出现在这里</div></div>`;
+    return;
+  }
+  const levelColor = l => l?.includes('B2')||l?.includes('高') ? 'var(--warn)' : l?.includes('B1')||l?.includes('中') ? 'var(--primary)' : 'var(--accent)';
+  list.innerHTML = readHistory.map(h => `
+    <div class="history-card">
+      <div class="hc-title">${h.title}</div>
+      <div class="hc-meta">
+        <span>${h.date}</span>
+        <span class="hc-badge" style="background:${levelColor(h.level)}22;color:${levelColor(h.level)}">${h.level||'N+1'}</span>
+        <span>${h.topic||''}</span>
+        ${h.feedback ? `<span style="color:var(--primary)">已反馈</span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function clearHistory() { if(!readHistory.length)return; if(confirm('确定清空全部阅读记录？')){readHistory=[];saveData();renderHistory();updateStats();showToast('已清空');} }
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('totalArticles').textContent = readHistory.length;
+  // Streak: count consecutive days
+  const today = new Date().toLocaleDateString('zh-CN');
+  let streak = 0;
+  const days = [...new Set(readHistory.map(h => h.date))];
+  for (let i = 0; i < days.length; i++) {
+    const d = new Date(days[i].replace(/\//g,'-'));
+    const expected = new Date();
+    expected.setDate(expected.getDate() - i);
+    if (d.toLocaleDateString('zh-CN') === expected.toLocaleDateString('zh-CN')) streak++;
+    else break;
+  }
+  document.getElementById('totalDays').textContent = streak;
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+function exportVocab() {
+  if (!vocab.length) { showToast('单词本还是空的'); return; }
+  let md = `# ReadFlow 单词本\n\n导出：${new Date().toLocaleString('zh-CN')}\n共 ${vocab.length} 个\n\n---\n\n`;
+  vocab.forEach((v,i) => {
+    md += `## ${i+1}. ${v.word}\n\n`;
+    if (v.pronunciation) md += `**发音**：${v.pronunciation}\n\n`;
+    md += `**释义**：${v.definition}\n\n`;
+    if (v.articleTitle) md += `**来源文章**：${v.articleTitle}\n\n`;
+    md += `---\n\n`;
+  });
+  dlFile(md, `ReadFlow_Vocab_${new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')}.md`);
+}
+
+function exportSentences() {
+  if (!savedSentences.length) { showToast('还没有收藏的句子'); return; }
+  let md = `# ReadFlow 收藏句子\n\n导出：${new Date().toLocaleString('zh-CN')}\n共 ${savedSentences.length} 句\n\n---\n\n`;
+  savedSentences.forEach((s,i) => {
+    md += `## ${i+1}.\n\n**英文**：${s.text}\n\n`;
+    if (s.zh) md += `**含义**：${s.zh}\n\n`;
+    if (s.articleTitle) md += `**来源**：${s.articleTitle}\n\n`;
+    md += `---\n\n`;
+  });
+  dlFile(md, `ReadFlow_Sentences_${new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')}.md`);
+}
+
+function dlFile(content, filename) {
+  Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([content], {type:'text/markdown'})),
+    download: filename
+  }).click();
+  showToast('导出成功');
+}
+
+// ── Data persistence ──────────────────────────────────────────────────────────
+function saveData() {
+  _safeStorage.setItem('rf_vocab',     JSON.stringify(vocab));
+  _safeStorage.setItem('rf_sentences', JSON.stringify(savedSentences));
+  _safeStorage.setItem('rf_history',   JSON.stringify(readHistory));
+}
+function loadData() {
+  try { vocab          = JSON.parse(_safeStorage.getItem('rf_vocab')     || '[]'); } catch { vocab = []; }
+  try { savedSentences = JSON.parse(_safeStorage.getItem('rf_sentences') || '[]'); } catch { savedSentences = []; }
+  try { readHistory    = JSON.parse(_safeStorage.getItem('rf_history')   || '[]'); } catch { readHistory = []; }
+  renderVocab(); renderSentences(); renderHistory();
+}
+
+// ── TTS ───────────────────────────────────────────────────────────────────────
+function initVoices() {
+  const load = () => {
+    const all = window.speechSynthesis.getVoices();
+    availableVoices = all.filter(v => v.lang.startsWith('en'));
+    availableVoices.sort((a,b) => {
+      const score = v => v.lang==='en-US'&&v.localService?0 : v.lang==='en-US'?1 : v.lang==='en-GB'?2 : 3;
+      return score(a)-score(b);
+    });
+  };
+  load();
+  if (!availableVoices.length) window.speechSynthesis.onvoiceschanged = load;
+}
+
+function speakText(text) {
+  if (!window.speechSynthesis) { showToast('浏览器不支持语音'); return; }
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'en-US'; utt.rate = 0.88;
+  if (availableVoices.length) utt.voice = availableVoices[currentVoiceIdx % availableVoices.length];
+  window.speechSynthesis.speak(utt);
+}
+
+// ── Prefs Modal ──────────────────────────────────────────────────────────────
+let tempSelectedLevel = null;
+let tempSelectedCats  = [];
+
+function openPrefs() {
+  const prefs = getPrefs();
+  tempSelectedLevel = prefs.level || 'A2';
+  tempSelectedCats  = [...(prefs.categories || [])];
+  
+  // Sync UI
+  document.querySelectorAll('.pref-level-btn').forEach(b => b.classList.toggle('active', b.dataset.lv === tempSelectedLevel));
+  document.querySelectorAll('.pref-cat-btn').forEach(b => b.classList.toggle('active', tempSelectedCats.includes(b.dataset.cat)));
+  updateLevelDesc(tempSelectedLevel);
+  document.getElementById('prefsModal').style.display = 'flex';
+}
+function closePrefs() {
+  document.getElementById('prefsModal').style.display = 'none';
+}
+function saveAndClosePrefs() {
+  savePrefs({ level: tempSelectedLevel, categories: tempSelectedCats });
+  closePrefs();
+  generateArticle();
+}
+function selectLevel(lv) {
+  tempSelectedLevel = lv;
+  document.querySelectorAll('.pref-level-btn').forEach(b => b.classList.toggle('active', b.dataset.lv === lv));
+  updateLevelDesc(lv);
+}
+function toggleCat(cat) {
+  const idx = tempSelectedCats.indexOf(cat);
+  if (idx >= 0) tempSelectedCats.splice(idx, 1);
+  else tempSelectedCats.push(cat);
+  document.querySelectorAll('.pref-cat-btn').forEach(b => b.classList.toggle('active', tempSelectedCats.includes(b.dataset.cat)));
+}
+function updateLevelDesc(lv) {
+  const cfg = LEVEL_CONFIG[lv];
+  if (!cfg) return;
+  const el = document.getElementById('levelDesc');
+  if (el) el.innerHTML = `<strong>${cfg.label}</strong>｜蓝思值约 ${cfg.lexile}｜句长 ${cfg.sentences}｜词汇 ${cfg.vocab}`;
+}
+
+
+// ── Search Modal ─────────────────────────────────────────────────────────────
+function fillSearch(q) {
+  document.getElementById('searchInput').value = q;
+  document.getElementById('searchInput').focus();
+}
+function fillPasteSample() {
+  document.getElementById('pasteArticleInput').value = `Why Writing Things Down Still Matters
+
+Many people use apps to remember tasks, ideas, and meetings. Digital tools are fast, searchable, and easy to share. Because of that, it is easy to think writing by hand is no longer important.
+
+But writing something down can change the way we think. When we slow down and use a pen, we often notice the shape of an idea more clearly. We are not only storing information. We are also organizing it.
+
+This is one reason many students still learn better when they take notes by hand. They usually write less, but they choose more carefully. That small decision-making process helps the brain remember what matters.
+
+Handwriting also creates a quiet moment in a busy day. A notebook does not send alerts. It does not open ten more tabs. It gives one space for one thought, and that can feel surprisingly helpful.
+
+Digital tools are still useful, of course. The point is not to replace them. The point is to remember that some older habits still support attention, memory, and clear thinking in a way that modern speed sometimes does not.`;
+  document.getElementById('pasteStatus').textContent = '已填入示例文章，你可以直接导入，也可以先改标题和正文。';
+  document.getElementById('pasteArticleInput').focus();
+}
+function openInlinePaste() {
+  currentReadMode = 'paste';
+  document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === 'paste'));
+  document.getElementById('inlinePasteComposer').classList.add('show');
+  document.getElementById('readingContentArea').style.display = 'none';
+  document.getElementById('sourcePanel').style.display = 'none';
+  document.getElementById('searchPagePill').classList.remove('show');
+  setTimeout(() => document.getElementById('pasteArticleInput').focus(), 100);
+}
+function closeInlinePaste(silent = false) {
+  document.getElementById('inlinePasteComposer').classList.remove('show');
+  document.getElementById('readingContentArea').style.display = '';
+  document.getElementById('sourcePanel').style.display = '';
+  if (currentArticle?.pages?.length > 1 || currentArticle?.sourceUrl) {
+    document.getElementById('searchPagePill').classList.add('show');
+  }
+  if (!silent) {
+    currentReadMode = 'original';
+    document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === 'original'));
+  }
+}
+function openSearch(mode = 'search') {
+  document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === mode));
+  document.getElementById('searchModal').style.display = 'flex';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchStatus').textContent = '';
+  setTimeout(() => document.getElementById('searchInput').focus(), 100);
+}
+function closeSearch() {
+  document.getElementById('searchModal').style.display = 'none';
+  document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === currentReadMode));
+}
+
+function cleanImportedText(rawText) {
+  const normalized = String(rawText || '')
+    .replace(/\r/g, '\n')
+    .replace(/\t/g, ' ')
+    .replace(/\u00A0/g, ' ')
+    .replace(/[ \u2000-\u200B]{2,}/g, ' ');
+  const lines = normalized
+    .split('\n')
+    .map(line => line.replace(/\s+/g, ' ').trim())
+    .filter(line => line)
+    .filter(line => !shouldDropImportedLine(line));
+
+  const merged = [];
+  lines.forEach(line => {
+    if (!merged.length) {
+      merged.push(line);
+      return;
+    }
+    const prev = merged[merged.length - 1];
+    if (shouldMergeImportedLine(prev, line)) {
+      merged[merged.length - 1] = `${prev} ${line}`.replace(/\s+/g, ' ').trim();
+      return;
+    }
+    merged.push(line);
+  });
+
+  return merged.join('\n\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function buildImportedParagraphs(cleanText) {
+  const blocks = cleanText
+    .split(/\n{2,}/)
+    .map(p => p.replace(/\n+/g, ' ').trim())
+    .filter(Boolean);
+  if (blocks.length >= 3) return blocks.filter(p => /[A-Za-z]/.test(p));
+  const lines = cleanText
+    .split(/\n+/)
+    .map(p => p.replace(/\n+/g, ' ').trim())
+    .filter(p => /[A-Za-z]/.test(p));
+  if (lines.length) return lines;
+  return splitSentences(cleanText)
+    .map(s => s.replace(/\s+/g, ' ').trim())
+    .filter(s => /[A-Za-z]/.test(s));
+}
+
+function hasEnglishContent(text) {
+  const words = String(text || '').match(/[A-Za-z]+/g) || [];
+  return words.length > 0;
+}
+
+function shouldDropImportedLine(line) {
+  if (!line) return true;
+  if (/^(menu|home|about|contact|subscribe|sign in|log in|login|share|comments?)$/i.test(line)) return true;
+  if (/^(all rights reserved|copyright \d{4})/i.test(line)) return true;
+  if (/^(cookie|privacy policy|terms of service|advertisement|sponsored)/i.test(line)) return true;
+  if (/^(related articles|read more|next article|previous article)$/i.test(line)) return true;
+  if (/^[|•·\-–—]+$/.test(line)) return true;
+  if (/^\d+\s*(min read|comments?)$/i.test(line)) return true;
+  return false;
+}
+
+function shouldMergeImportedLine(prev, line) {
+  if (!prev || !line) return false;
+  if (/[.!?:"”']$/.test(prev)) return false;
+  if (/^[-•·]/.test(line)) return false;
+  if (line.length < 38) return true;
+  if (/^[a-z(]/.test(line)) return true;
+  if (/^[A-Z][a-z]+(?:\s+[a-z][a-z'-]+){1,}/.test(line) && prev.length < 120) return true;
+  return false;
+}
+
+async function buildImportedArticleData(rawText, options = {}) {
+  const cleanText = cleanImportedText(rawText);
+  if (!hasEnglishContent(cleanText)) throw new Error('没有识别到英文内容，贴一段英文就可以导入');
+
+  const paragraphs = buildImportedParagraphs(cleanText);
+  if (!paragraphs.length) throw new Error('暂时没能整理出可阅读段落，试着粘贴更完整的正文');
+
+  const pageSize = 5;
+  const sourcePages = [];
+  for (let i = 0; i < paragraphs.length; i += pageSize) {
+    sourcePages.push(paragraphs.slice(i, i + pageSize));
+  }
+
+  const prefs = getPrefs();
+  const level = prefs.level || 'A2';
+  const title = inferImportedTitle(paragraphs);
+  let hardWords = [];
+  let lexileEstimate = '';
+  let zhSummary = '自定义英文原文';
+
+  if (_safeStorage.getItem('rf_api_key')) {
+    const firstPageText = sourcePages[0].join('\n\n');
+    const analysisPrompt = `Analyze this English article page for a Chinese learner at ${level} level.
+Text:
+"""
+${firstPageText}
+"""
+Respond ONLY with JSON:
+{"hard_words":["word1","word2","word3","word4","word5","word6"],"lexile_estimate":"<e.g. 720L>","zh_summary":"<20字内中文概括>"}`;
+    const raw = await callAI(analysisPrompt, { maxTokens: 420, temperature: 0.2 });
+    const analysisData = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    hardWords = analysisData.hard_words || [];
+    lexileEstimate = normalizeLexileEstimate(analysisData.lexile_estimate);
+    zhSummary = analysisData.zh_summary || zhSummary;
+  }
+
+  const wordCount = cleanText.split(/\s+/).filter(Boolean).length;
+  return {
+    title,
+    topic: options.topic || '自定义导入',
+    category: '粘贴原文',
+    level,
+    lexile_estimate: lexileEstimate,
+    estimated_time: `${Math.max(1, Math.ceil(wordCount / 180))} 分钟`,
+    why_recommended: `粘贴导入阅读 · ${zhSummary}`,
+    challenge_hint: `${level}级导入 · 共 ${sourcePages.length} 页`,
+    hard_words: hardWords,
+    paragraphs: sourcePages[0],
+    sourcePages,
+    isReal: true
+  };
+}
+
+function inferImportedTitle(paragraphs) {
+  const heading = paragraphs.find(p => p.length >= 8 && p.length <= 80 && !/[.!?]$/.test(p) && /^([A-Z][A-Za-z0-9,'’:-]+(?:\s+[A-Z][A-Za-z0-9,'’:-]+|\s+of|\s+and|\s+the|\s+to|\s+for)){1,}$/.test(p));
+  const firstSentence = splitSentences((heading || paragraphs[0] || ''))[0] || heading || paragraphs[0] || 'Imported Article';
+  const compact = firstSentence.replace(/\s+/g, ' ').trim();
+  return compact.length > 56 ? compact.slice(0, 56) + '…' : compact;
+}
+
+async function importPastedArticle() {
+  const rawText = document.getElementById('pasteArticleInput').value.trim();
+  if (!rawText) { showToast('请先粘贴英文文章'); return; }
+
+  const btn = document.getElementById('pasteSubmitBtn');
+  const status = document.getElementById('pasteStatus');
+  btn.textContent = '导入中…';
+  btn.disabled = true;
+  status.style.color = 'var(--ink-3)';
+  status.textContent = _safeStorage.getItem('rf_api_key') ? '正在整理文章和重点词…' : '正在整理文章分页…';
+
+  try {
+    const articleData = await buildImportedArticleData(rawText);
+    currentReadMode = 'original';
+    closeInlinePaste(true);
+    document.querySelectorAll('.reading-tab').forEach(t => t.classList.toggle('active', t.dataset.m === 'original'));
+    hydrateArticle(articleData);
+    showToast('文章已导入');
+  } catch (err) {
+    console.error(err);
+    status.style.color = 'var(--red)';
+    status.textContent = err.message || '这次导入失败了，试着换一篇更完整的正文。';
+    showToast(err.message || '暂时没能导入这篇文章');
+  }
+
+  btn.textContent = '导入文章 →';
+  btn.disabled = false;
+}
+
+async function searchAndGenerate() {
+  const query = document.getElementById('searchInput').value.trim();
+  if (!query) { showToast('请输入关键词'); return; }
+
+  const btn    = document.getElementById('searchSubmitBtn');
+  const status = document.getElementById('searchStatus');
+  btn.textContent = '搜索中…'; btn.disabled = true;
+  status.textContent = '正在查找英文原文…';
+
+  try {
+    // Step 1: Wikipedia search → full page extract
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*&srlimit=3`;
+    const searchRes = await fetch(searchUrl);
+    const searchData = await searchRes.json();
+    const pages = searchData?.query?.search || [];
+
+    if (!pages.length) throw new Error('没有找到对应原文');
+
+    const pageId = pages[0].pageid;
+    const sourceTitle = pages[0].title;
+    const sourceUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(sourceTitle.replace(/ /g,'_'))}`;
+    status.textContent = `已找到 ${sourceTitle}，正在准备阅读内容…`;
+    const extractUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=true&pageids=${pageId}&format=json&origin=*`;
+    const extractRes = await fetch(extractUrl);
+    const extractData = await extractRes.json();
+    const page = extractData?.query?.pages?.[pageId];
+    const rawText = page?.extract || '';
+    if (!rawText || rawText.length < 400) throw new Error('这篇内容较短，暂时不适合当前阅读模式');
+
+    // Step 2: clean + paginate original text
+    const cleanText = rawText
+      .replace(/\r/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/[ \t]{2,}/g, ' ')
+      .trim();
+
+    const prefs = getPrefs();
+    const level = prefs.level || 'A2';
+    const paragraphs = cleanText
+      .split(/\n+/)
+      .map(p => p.trim())
+      .filter(p => p.length > 40 && !/^=+$/.test(p) && !/^See also$|^References$|^External links$/i.test(p));
+    if (!paragraphs.length) throw new Error('暂时没能整理出可阅读内容');
+
+    const pageSize = 5;
+    const sourcePages = [];
+    for (let i = 0; i < paragraphs.length; i += pageSize) {
+      sourcePages.push(paragraphs.slice(i, i + pageSize));
+    }
+
+    let hardWords = [];
+    let lexileEstimate = '';
+    let zhSummary = '英文公开原文';
+    if (_safeStorage.getItem('rf_api_key')) {
+      status.textContent = '正在整理第一页内容…';
+      const firstPageText = sourcePages[0].join('\n\n');
+      const analysisPrompt = `Analyze this English original text page for a Chinese learner at ${level} level.
+Text:
+"""
+${firstPageText}
+"""
+Respond ONLY with JSON:
+{"hard_words":["word1","word2","word3","word4","word5","word6"],"lexile_estimate":"<e.g. 720L>","zh_summary":"<20字内中文概括>"}`;
+      const raw = await callAI(analysisPrompt);
+      const analysisData = JSON.parse(raw.replace(/```json|```/g,'').trim());
+      hardWords = analysisData.hard_words || [];
+      lexileEstimate = normalizeLexileEstimate(analysisData.lexile_estimate);
+      zhSummary = analysisData.zh_summary || zhSummary;
+    }
+
+    const wordCount = cleanText.split(/\s+/).length;
+    const articleData = {
+      title: sourceTitle,
+      topic: query,
+      category: '公开原文',
+      level,
+      lexile_estimate: lexileEstimate,
+      estimated_time: `${Math.max(1, Math.ceil(wordCount / 180))} 分钟`,
+      why_recommended: `公开原文阅读 · ${zhSummary}`,
+      challenge_hint: `${level}级原文 · 共 ${sourcePages.length} 页`,
+      hard_words: hardWords,
+      paragraphs: sourcePages[0],
+      sourcePages,
+      sourceUrl,
+      isReal: true,
+    };
+
+    closeSearch();
+    hydrateArticle(articleData);
+
+  } catch(err) {
+    console.error(err);
+    status.textContent = '这次没有找到合适内容，换一个更明确的英文关键词试试。';
+    showToast(err.message || '暂时没有找到合适内容');
+  }
+
+  btn.textContent = '搜索文章 →'; btn.disabled = false;
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
